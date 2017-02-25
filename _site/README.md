@@ -1,1 +1,0 @@
-This is the personal website of Sri Paladugu, served by Github Pages as a 'user page.' This site was built using [Jekyll](http://jekyllrb.com/) and styled with [Bootstrap](http://getbootstrap.com/), as well as modified versions of the [sustain](http://www.github.com/biomadeira/sustain) and [vitae](http://github.com/biomadeira/vitae) themes.
