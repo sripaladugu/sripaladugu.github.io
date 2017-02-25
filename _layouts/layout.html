@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  {% include head.html %}
+
+  <!-- Main Body-->
+  <body>
+    
+    <!-- Navbar header -->
+    {% include header.html %}
+
+    <!-- Wrap all page content here -->
+    <div class="container">
+
+      {{ content }}
+
+    </div>
+
+    <!-- Footer -->
+    {% include footer.html %}
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	  <script src="{{ site.baseurl }}/js/docs.min.js"></script>
+    <script src="{{ site.baseurl }}/js/main.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ site.baseurl }}/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

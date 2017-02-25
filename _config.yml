@@ -1,0 +1,58 @@
+# top level stuff you probably don't need to touch
+# highlighter: pygments
+# markdown: rdiscount
+# rdiscount:
+#   extensions: [smart]
+markdown: kramdown
+highlighter: rouge
+# permalink: /:title.html
+paginate: 5
+gems:
+  - jekyll-paginate
+  - jekyll-gist
+  - jekyll-sitemap
+  - jekyll-feed
+# port: 3000
+# safe: true
+
+# pages:
+  # - '/about'
+  # - '/cv'
+
+# edit here to achieve your personal greatness
+url: "http://sripaladugu.github.io/"
+baseurl: ""
+title: Sri R. Paladugu
+author: Sri Paladugu
+name: Sri Paladugu
+description: Personal website of Sri Paladugu, Principal Scientist at Roche.
+#avatar: http://files.saraemoore.com/images/sara_wjwed_zoom_square.png
+avatar: images/sri_1651799721_o.jpg
+avatar_small: images/sri_1651799721_o.jpg
+email: spaladug@gmail.com
+email_full: mailto:spaladug@gmail.com
+website: sripaladugu.github.io
+website_full: http://sripaladugu.github.io/
+github: sripaladugu
+twitter: sri_paladugu
+linkedin: sri-paladugu-07164214
+# stackoverflow: username   #e.g: users/2735833/proton1h1
+#Comment out if you don't want disqus
+#disqus: username
+#google_analytics: UA-48006600-4
+
+tel: 510 764 6553
+tel_full: tel:+15107646553
+google_maps: 'https://www.google.com/maps/place/4155+Hopyard+Rd,+Pleasanton,+CA+94588/'
+address: 4155 Hopyard Rd
+postcode: 94588
+city: Pleasanton
+state: California
+country: United States
+
+# hilitecolor: "#27A822"
+hilitecolor: "#eb6e1f"
+tagcolor: "#1f9ceb"
+
+# needed for travis-ci build
+exclude: [vendor]

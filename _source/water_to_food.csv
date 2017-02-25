@@ -1,0 +1,82 @@
+custom.descrip,custom.categ,latimes.descrip,latimes.categ,water.hs.code,water.descrip,food.ndb.code,food.ndb.descrip,food.ndb.categ
+Beef,Meat,Beef,Protein,020130,"Bovine cuts boneless, fresh or chilled",13795,"Beef, composite of trimmed retail cuts, separable lean and fat, trimmed to 1/8"" fat, all grades, raw",Beef Products
+Pork,Meat,Pork,Protein,020319,"Swine cuts, fresh or chilled, nes",10002,"Pork, fresh, composite of trimmed retail cuts (leg, loin, shoulder), separable lean only, raw",Pork Products
+Lamb,Meat,Lamb,Protein,020423,"Sheep cuts, boneless, fresh or chilled",17226,"Lamb, domestic, composite of trimmed retail cuts, separable lean and fat, trimmed to 1/8"" fat, choice, raw","Lamb, Veal, and Game Products"
+Goat,Meat,Goat,Protein,020450,"Goat meat, fresh, chilled or frozen",17168,"Goat, raw","Lamb, Veal, and Game Products"
+Chicken,Meat,Chicken,Protein,160239,"Dom fowl,duck,goose&guinea fowl meat&meat offal prep/presvd exc livers (same as Turkey meat and meat offal prepared or preserved, excluding livers)",05006,"Chicken, broilers or fryers, meat and skin, raw",Poultry Products
+Chickpeas,Legumes,Chickpeas,Protein,071320,"Chickpeas, dried, shelled, whether or not skinned or split",16056,"Chickpeas (garbanzo beans, bengal gram), mature seeds, raw",Legumes and Legume Products
+Peas,Legumes,Peas,Protein,071310,"Peas dried, shelled, whether or not skinned or split",16085,"Peas, green, split, mature seeds, raw",Legumes and Legume Products
+Eggs,Dairy and Egg,Eggs,Protein,040700,"Eggs, bird, in shell, fresh, preserved or cooked",01123,"Egg, whole, raw, fresh",Dairy and Egg Products
+Soy burger,Legumes,Soy burger,Protein,120100e,Soy burger,16147,"Veggie burgers or soyburgers, unprepared",Legumes and Legume Products
+Lentils,Legumes,Lentils,Protein,071340,"Lentils dried, shelled, whether or not skinned or split",16069,"Lentils, raw",Legumes and Legume Products
+Soy milk,Legumes,Soy milk,Drink,120100d,Soy milk,16120,"Soymilk, original and vanilla, unfortified",Legumes and Legume Products
+Orange juice,Fruits and veggies,Orange juice,Drink,200919,"Orange juice nes,unfermentd&not spiritd,whether or not sugard or sweet",09206,"Orange juice, raw",Fruits and Fruit Juices
+Milk,Dairy and Egg,Milk,Drink,040120,Milk not concentrated & unsweetened exceeding 1% not exceeding 6% fat,01211,"Milk, whole, 3.25% milkfat, without added vitamin A and vitamin D",Dairy and Egg Products
+Wine,Fruits and veggies,Wine,Drink,220421,"Grape wines nes,incl fort&grape must,unfermntd by add alc in ctnr</=2l (same as Grape wines nes,incl fort&grape must,unfermntd by add alc,in ctnr > 2l)",14084,"Alcoholic beverage, wine, table, all",Beverages
+Sparkling wine,Fruits and veggies,Sparkling wine,Drink,220410,"Grape wines, sparkling",,,
+Grapefruit juice,Fruits and veggies,Grapefruit juice,Drink,200920,"Grapefruit juice,unfermentd&not spiritd,whether or not sugard or sweet",09404,"Grapefruit juice, pink, raw",Fruits and Fruit Juices
+Beer,Grains and Starch,Beer,Drink,220300,Beer made from malt,14003,"Alcoholic beverage, beer, regular, all",Beverages
+Apple juice,Fruits and veggies,Apple juice,Drink,200970,Apple juice unfermented&not spiritd whether or not sugard or sweetend,09016,"Apple juice, canned or bottled, unsweetened, without added ascorbic acid",Fruits and Fruit Juices
+Grape juice,Fruits and veggies,Grape juice,Drink,200960,"Grape juice (incl grape must) unferment&unspiritd,wthr/nt sug/sweet",09135,"Grape juice, canned or bottled, unsweetened, without added ascorbic acid",Fruits and Fruit Juices
+Pineapple juice,Fruits and veggies,Pineapple juice,Drink,200940,"Pineapple juice,unfermented&not spiritd,whether or not sugard or sweet",09273,"Pineapple juice, canned or bottled, unsweetened, without added ascorbic acid",Fruits and Fruit Juices
+Wheat bread,Grains and Starch,Wheat bread,Starch,110100a,Wheat bread,18064,"Bread, wheat",Baked Products
+Pasta,Grains and Starch,Pasta,Starch,110100b,Dry pasta,20099,"Macaroni, dry, enriched",Cereal Grains and Pasta
+White rice,Grains and Starch,Rice,Starch,100630,"Rice, semi-milled or wholly milled, whether or not polished or glazed",20054,"Rice, white, glutinous, raw",Cereal Grains and Pasta
+Potatoes,Grains and Starch,Potatoes,Starch,070190,"Potatoes, fresh or chilled nes, Potatoes",11352,"Potatoes, flesh and skin, raw",Vegetables and Vegetable Products
+Apples,Fruits and veggies,Apples,Fruits and vegetables,080810,"Apples, fresh",09003,"Apples, raw, with skin",Fruits and Fruit Juices
+Asparagus,Fruits and veggies,Asparagus,Fruits and vegetables,070920,"Asparagus, fresh or chilled",11011,"Asparagus, raw",Vegetables and Vegetable Products
+Artichokes,Fruits and veggies,Artichokes,Fruits and vegetables,070910,"Globe artichokes, fresh or chilled",11007,"Artichokes, (globe or french), raw",Vegetables and Vegetable Products
+Avocados,Fruits and veggies,Avocados,Fruits and vegetables,080440,"Avocados, fresh or dried",09037,"Avocados, raw, all commercial varieties",Fruits and Fruit Juices
+Bananas,Fruits and veggies,Bananas,Fruits and vegetables,080300aa,Bananas,09040,"Bananas, raw",Fruits and Fruit Juices
+Blackberries,Fruits and veggies,Blackberries,Fruits and vegetables,081020,"Raspberries, blackberries, mulberries and loganberries, fresh",09042,"Blackberries, raw",Fruits and Fruit Juices
+Blueberries,Fruits and veggies,Blueberries,Fruits and vegetables,081040_c,Blueberries,09050,"Blueberries, raw",Fruits and Fruit Juices
+Broccoli,Fruits and veggies,Broccoli,Fruits and vegetables,070410,"Cauliflowers and headed broccoli, fresh or chilled",11090,"Broccoli, raw",Vegetables and Vegetable Products
+Brussels sprouts,Fruits and veggies,Brussels Sprouts,Fruits and vegetables,070420,"Brussels sprouts, fresh or chilled",11098,"Brussels sprouts, raw",Vegetables and Vegetable Products
+Cabbage,Fruits and veggies,Cabbage,Fruits and vegetables,070490,"Cabbages,kohlrabi,kale and sim edible brassicas nes,fresh or chilled",11109,"Cabbage, raw",Vegetables and Vegetable Products
+Carrots,Fruits and veggies,Carrots,Fruits and vegetables,070610,"Carrots and turnips, fresh or chilled",11124,"Carrots, raw",Vegetables and Vegetable Products
+Cauliflower,Fruits and veggies,Cauliflower,Fruits and vegetables,070410,"Cauliflowers and headed broccoli, fresh or chilled",11135,"Cauliflower, raw",Vegetables and Vegetable Products
+Cherries,Fruits and veggies,Cherries,Fruits and vegetables,080920,"Cherries, fresh",09070,"Cherries, sweet, raw",Fruits and Fruit Juices
+Cranberries,Fruits and veggies,Cranberries,Fruits and vegetables,081040,"Cranberries, bilberries and other fruits of the genus Vaccinium, fresh",09078,"Cranberries, raw",Fruits and Fruit Juices
+Cucumber,Fruits and veggies,Cucumber,Fruits and vegetables,070700,"Cucumbers and gherkins, fresh or chilled",11205,"Cucumber, with peel, raw",Vegetables and Vegetable Products
+Eggplant,Fruits and veggies,Eggplant,Fruits and vegetables,070930,"Aubergines(egg-plants), fresh or chilled",11209,"Eggplant, raw",Vegetables and Vegetable Products
+Grapefruit,Fruits and veggies,Grapefruit,Fruits and vegetables,080540,"Grapefruit, fresh or dried",09111,"Grapefruit, raw, pink and red and white, all areas",Fruits and Fruit Juices
+Grapes,Fruits and veggies,Grapes,Fruits and vegetables,080610,"Grapes, fresh",09132,"Grapes, red or green (European type, such as Thompson seedless), raw",Fruits and Fruit Juices
+Kale,Fruits and veggies,Kale,Fruits and vegetables,070490,"Cabbages,kohlrabi,kale and sim edible brassicas nes,fresh or chilled",11233,"Kale, raw",Vegetables and Vegetable Products
+Lettuce,Fruits and veggies,Lettuce,Fruits and vegetables,070511,Cabbage lettuce (head lettuce) fresh or chilled ,11252,"Lettuce, iceberg (includes crisphead types), raw",Vegetables and Vegetable Products
+Mangoes,Fruits and veggies,Mangoes,Fruits and vegetables,080450,"Guavas, mangoes and mangosteens, fresh or dried",09176,"Mangos, raw",Fruits and Fruit Juices
+Okra,Fruits and veggies,Okra,Fruits and vegetables,070990cb,Okra,11278,"Okra, raw",Vegetables and Vegetable Products
+Onions,Fruits and veggies,Onions,Fruits and vegetables,071220,Onions dried but not further prepared,11282,"Onions, raw",Vegetables and Vegetable Products
+Oranges,Fruits and veggies,Oranges,Fruits and vegetables,080510,"Oranges, fresh or dried",09200,"Oranges, raw, all commercial varieties",Fruits and Fruit Juices
+Peaches,Fruits and veggies,Peaches,Fruits and vegetables,080930,"Peaches, including nectarines, fresh",09236,"Peaches, raw",Fruits and Fruit Juices
+Pear,Fruits and veggies,Pear,Fruits and vegetables,080820,"Pears and quinces, fresh",09252,"Pears, raw",Fruits and Fruit Juices
+Pineapples,Fruits and veggies,Pineapples,Fruits and vegetables,080430,"Pineapples, fresh or dried",09266,"Pineapple, raw, all varieties",Fruits and Fruit Juices
+Raspberries,Fruits and veggies,Raspberries,Fruits and vegetables,081020,"Raspberries, blackberries, mulberries and loganberries, fresh",09302,"Raspberries, raw",Fruits and Fruit Juices
+Spinach,Fruits and veggies,Spinach,Fruits and vegetables,070970,"Spinach,N-Z spinach & orache spinach (garden spinach),fresh or chilled",11457,"Spinach, raw",Vegetables and Vegetable Products
+Squash,Fruits and veggies,Squash,Fruits and vegetables,070990_b,"Pumpkins, squash and gourds",11477,"Squash, summer, zucchini, includes skin, raw",Vegetables and Vegetable Products
+Strawberries,Fruits and veggies,Strawberries,Fruits and vegetables,081010,"Strawberries, fresh",09316,"Strawberries, raw",Fruits and Fruit Juices
+Tomatoes,Fruits and veggies,Tomatoes,Fruits and vegetables,070200,"Tomatoes, fresh or chilled",11529,"Tomatoes, red, ripe, raw, year round average",Vegetables and Vegetable Products
+Watermelon,Fruits and veggies,Watermelon,Fruits and vegetables,080711,Watermelons,09326,"Watermelon, raw",Fruits and Fruit Juices
+Almonds,Nuts and Seeds,,,080212,"Almonds,fresh or dried,shelled or peeled",12061,"Nuts, almonds",Nut and Seed Products
+Walnuts,Nuts and Seeds,,,080232,"Walnuts, fresh or dried, shelled or peeled",12155,"Nuts, walnuts, english",Nut and Seed Products
+Hazelnuts,Nuts and Seeds,,,080222,"Hazelnuts or filberts, fresh or dried, shelled or peeled",12120,"Nuts, hazelnuts or filberts",Nut and Seed Products
+Sunflower seeds,Nuts and Seeds,,,120600,"Sunflower seeds, whether or not broken",12036,"Seeds, sunflower seed kernels, dried",Nut and Seed Products
+Pistachios,Nuts and Seeds,,,080250,"Pistachios, fresh or dried, whether or not shelled or peeled",12151,"Nuts, pistachio nuts, raw",Nut and Seed Products
+Plums,Fruits and veggies,,,080940,"Plums and sloes, fresh",09279,"Plums, raw",Fruits and Fruit Juices
+Cantaloupes,Fruits and veggies,,,080719,Other melons (inc.cantaloupes),09181,"Melons, cantaloupe, raw",Fruits and Fruit Juices
+Dates,Fruits and veggies,,,080410,"Dates, fresh or dried",09421,"Dates, medjool",Fruits and Fruit Juices
+Figs,Fruits and veggies,,,080420,"Figs, fresh or dried",09089,"Figs, raw",Fruits and Fruit Juices
+Raisins,Fruits and veggies,,,080620,"Grapes, dried",09298,"Raisins, seedless",Fruits and Fruit Juices
+Butter,Dairy and Egg,,,040510,Butter,01145,"Butter, without salt",Dairy and Egg Products
+Yogurt,Dairy and Egg,,,040310,"Yogurt concentratd o not,sweetend o not,flavourd o contg fruit o cocoa",01117,"Yogurt, plain, low fat, 12 grams protein per 8 ounce",Dairy and Egg Products
+Celery,Fruits and veggies,,,070940,"Celery, other than celeriac, fresh or chilled",11143,"Celery, raw",Vegetables and Vegetable Products
+Sweet potatoes,Grains and Starch,,,071420,"Sweet potatoes, fresh or dried, whether or not sliced or pelleted, Sweet potatoes",11507,"Sweet potato, raw, unprepared",Vegetables and Vegetable Products
+Olive oil,Fruits and veggies,,,150910,"Olive oil, virgin",04053,"Oil, olive, salad or cooking",Fats and Oils
+Garlic,Fruits and veggies,,,070320,"Garlic, fresh or chilled",11215,"Garlic, raw",Vegetables and Vegetable Products
+Quinoa,Grains and Starch,,,100890ac,Quinoa,20035,"Quinoa, uncooked",Cereal Grains and Pasta
+Brown rice,Grains and Starch,,,100620,"Rice, husked (brown)",20036,"Rice, brown, long-grain, raw",Cereal Grains and Pasta
+String beans,Fruits and veggies,,,070820_b,String beans,11052,"Beans, snap, green, raw",Vegetables and Vegetable Products
+Kiwifruit,Fruits and veggies,,,081050,Kiwi fruit,09148,"Kiwifruit, green, raw",Fruits and Fruit Juices
+Apricots,Fruits and veggies,,,080910,"Apricots, fresh",09021,"Apricots, raw",Fruits and Fruit Juices
+Sweet corn,Grains and Starch,,,071040,"Sweet corn, frozen",11178,"Corn, sweet, yellow, frozen, kernels cut off cob, unprepared",Vegetables and Vegetable Products
+Rolled oats,Grains and Starch,,,110412,"Oats, rolled or flaked grains",08120,"Cereals, oats, regular and quick, not fortified, dry",Breakfast Cereals
+Olives,Fruits and veggies,,,070990aa,Olives,09193,"Olives, ripe, canned (small-extra large)",Fruits and Fruit Juices

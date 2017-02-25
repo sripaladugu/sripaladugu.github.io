@@ -1,0 +1,327 @@
+---
+layout: post
+title: "What (not) to eat in a drought: water usage scaled by nutritional value of food products"
+date: 2015-04-20
+tags: [ggplot2, r, dataviz]
+---
+
+The graphics below are an attempt to improve upon some of the recently published drought-related (info)graphics regarding water use for food production.  (Relevant examples include this [LA Times graphic](http://graphics.latimes.com/food-water-footprint/) and [supplementary graphics on nuts](http://www.latimes.com/local/lanow/la-me-g-how-water-hungry-are-californias-nuts-20150408-htmlstory.html), published on 7 and 9 April 2015, respectively, and "[Wired's guide to produce that won't make the drought worse](http://www.wired.com/2015/04/wireds-guide-produce-wont-make-drought-worse/)," published on 15 April 2015.) The major issue with these approaches is the metric they employ: the number of gallons of water required to produce some weight (ounces, grams, etc.) of a given food.  The approach used below instead assesses the number of gallons of water required to produce a unit of nutritional value for each food (Calories or grams of protein, for example).
+
+To accomplish this, two major data sources were used.  The first is extensive ["water footprint" data by Mekonnen and Hoekstra](http://waterfootprint.org) on both crops and farm animal products. This is the same data source used by the LA Times and Wired (above). The second data source was the [USDA National Nutrient Database](http://ndb.nal.usda.gov/).  More details, along with a full list of references, are provided at the end of this document.
+
+Notably, a "water footprint per kcal" approach, very similar to the one employed below, has been suggested and utilized in published works by Mekonnen and Hoekstra. Joanna Pearlstein, the author of the Wired article (referenced above), concedes that their infographic "doesn't consider foods' nutritional properties.... a water-intensive food that was also high-calorie and highly nutritious might be worth it."
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(openxlsx) # read.xlsx
+library(readxl) # read_excel
+library(ggplot2)
+sprdsht.ext = ".xlsx"
+
+orig.water.path = "http://waterfootprint.org/media/downloads/"
+water.crop.fn = "Report47-Appendix-II"
+
+water.animal.fn = "Report48-Appendix-V"
+
+food.fn = "sr27abxl"
+orig.food.path = "http://www.ars.usda.gov/SP2UserFiles/Place/12354500/Data/SR27/dnload/"
+food.dat.fn = "ABBREV"
+
+temp.dir = tempdir()
+temp.files = tempfile(tmpdir=rep(temp.dir,3), fileext=".zip")
+
+download.file(paste0(orig.food.path,food.fn,".zip"), temp.files[1])
+download.file(paste0(orig.water.path,water.crop.fn,".zip"), temp.files[2])
+download.file(paste0(orig.water.path,water.animal.fn,".zip"), temp.files[3])
+
+unzip(temp.files[1], files=paste0(food.dat.fn, sprdsht.ext), exdir=temp.dir, overwrite=TRUE)
+unzip(temp.files[2], files=paste0(water.crop.fn, sprdsht.ext), exdir=temp.dir, overwrite=TRUE)
+unzip(temp.files[3], files=paste0(water.animal.fn, sprdsht.ext), exdir=temp.dir, overwrite=TRUE)
+
+food.file.path = file.path(temp.dir, paste0(food.dat.fn, sprdsht.ext))
+water.crop.file.path = file.path(temp.dir, paste0(water.crop.fn, sprdsht.ext))
+water.animal.file.path = file.path(temp.dir, paste0(water.animal.fn, sprdsht.ext))
+
+water.crop.df = read.xlsx(water.crop.file.path,
+	sheet = 2, startRow = 7, colNames = FALSE)
+water.animal.df = read.xlsx(water.animal.file.path,
+	sheet = 2, startRow = 5, colNames = FALSE)
+
+water.crop.cols = read.xlsx(water.crop.file.path,
+	sheet = 2, colNames = FALSE, rows = 4:5)
+colnames(water.crop.df) = as.character(apply(water.crop.cols, 2,
+	function(x) ifelse(all(!is.na(x)), paste(x[1],x[2],sep="::"),
+		x[which(!is.na(x))])))
+
+# remove footnote rows
+water.crop.df = water.crop.df[-((nrow(water.crop.df)-1):nrow(water.crop.df)),]
+# change uninformative column name to an informative one
+colnames(water.crop.df)[colnames(water.crop.df)=="Country >>>::Province/ state >>>"] = "Water use type"
+# remove last column as it is a duplicate of an earlier column
+water.crop.df = water.crop.df[,-ncol(water.crop.df)]
+
+water.animal.cols = read.xlsx(water.animal.file.path,
+	sheet = 2, colNames = FALSE, rows = 3:4)
+water.animal.cols = as.character(apply(water.animal.cols, 2,
+	function(x) ifelse(all(!is.na(x)), paste(x[1],x[2],sep="::"),
+		x[which(!is.na(x))])))
+# fix some that didn't read quite right from multicell spans
+water.animal.cols[11:13] = paste("World Average", water.animal.cols[11:13], sep="::")
+water.animal.cols[823:825] = paste("Zimbabwe", water.animal.cols[823:825], sep="::")
+colnames(water.animal.df) = water.animal.cols
+
+# change uninformative column name to an informative one
+colnames(water.animal.df)[colnames(water.animal.df)=="Country::Production system >>"] = "Water use type"
+
+water.crop.keep.cols = c("Product code (HS)", "Product description (HS)", "Product description (FAOSTAT)", "Water use type",
+	"Global average::Global average", "United States of America::CNTRY-average", "United States of America::California")
+
+water.animal.keep.cols = c("HS (PC-TAS) code", "Product discription (HS)", "Product description (SITC)", "Water use type",
+	"World Average::Weighted average", "United States of America::Weighted average")
+
+water.df = rbind(water.crop.df[,water.crop.keep.cols],
+	setNames(cbind(water.animal.df[,water.animal.keep.cols], California=NA), water.crop.keep.cols))
+colnames(water.df) = c("Code (HS)", "Description (HS)", "Secondary description", "Water use type",
+	"Global avg", "US avg", "California")
+
+# fill in the water use table
+water.idx = seq(from=1,to=nrow(water.df), by=length(unique(water.df[,"Water use type"])))
+water.df[,1:3] = as.data.frame(apply(water.df[,1:3], 2,
+	function(x) rep(x[water.idx], each=length(unique(water.df[,"Water use type"])))))
+
+water.df[,"Global avg"] = as.numeric(water.df[,"Global avg"])
+water.df[,"US avg"] = as.numeric(water.df[,"US avg"])
+water.df[,"California"] = as.numeric(water.df[,"California"])
+
+water.df.summed = water.df[water.idx,1:3]
+# take sum of every 3 rows
+# assume that NA means that type of water use was negligible,
+# unless there are no records for any type of water use,
+# in which case there is no water use information for that product.
+water.df.summed$global.total = sapply(water.idx,
+	function(i) ifelse(all(is.na(water.df[i:(i+2),"Global avg"])),
+		NA, sum(water.df[i:(i+2),"Global avg"], na.rm=TRUE)))
+water.df.summed$us.total = sapply(water.idx,
+	function(i) ifelse(all(is.na(water.df[i:(i+2),"US avg"])),
+		NA, sum(water.df[i:(i+2),"US avg"], na.rm=TRUE)))
+water.df.summed$cali.total = sapply(water.idx,
+	function(i) ifelse(all(is.na(water.df[i:(i+2),"California"])),
+		NA, sum(water.df[i:(i+2),"California"], na.rm=TRUE)))
+
+# collapse descriptions
+water.df.summed[,"Description (HS)"] = as.character(water.df.summed[,"Description (HS)"])
+water.df.summed[is.na(water.df.summed[,"Description (HS)"]),"Description (HS)"] = as.character(water.df.summed[is.na(water.df.summed[,"Description (HS)"]),"Secondary description"])
+colnames(water.df.summed)[colnames(water.df.summed)=="Description (HS)"] = "Description"
+water.df.summed = water.df.summed[,-which(colnames(water.df.summed)=="Secondary description")]
+
+water.df.summed[which(water.df.summed$us.total<1),"us.total"]=NA
+
+# according to google's unit converter,
+water.to.food.scaling.factor = 0.0291199841
+
+# multiply by the scaling factor to convert m^3 per ton to gallons per 100 grams
+water.df.summed[,c("global.total","us.total","cali.total")] = water.to.food.scaling.factor*water.df.summed[,c("global.total","us.total","cali.total")]
+
+# nutritional value per 100 grams
+food.df = read_excel(food.file.path, sheet = 1)
+
+# manually matched foods between two databases
+water.to.food = read.csv(file.path("_source", "water_to_food.csv"), colClasses = "character")
+water.to.food = water.to.food[,-which(colnames(water.to.food)%in%c("water.descrip","food.ndb.descrip"))]
+# sparkling wine was the only L.A. Times item not included in the USDA nutrient database.
+
+all.df = merge(
+	merge(water.df.summed, water.to.food, by.x="Code (HS)", by.y="water.hs.code"),
+	merge(food.df, water.to.food, by.x="NDB_No", by.y="food.ndb.code"),
+	by.x="food.ndb.code", by.y="NDB_No")
+colnames(all.df) = gsub("\\(|\\)|\\+","",colnames(all.df))
+colnames(all.df) = gsub("µ","mc",colnames(all.df))
+
+all.df$custom.categ.x = factor(all.df$custom.categ.x,
+	levels=c("Fruits and veggies", "Grains and Starch", "Legumes", "Nuts and Seeds", "Dairy and Egg", "Meat"))
+
+# manual correction to soy milk
+all.df[grep("soy milk",all.df$Description, ignore.case=TRUE),c("global.total","us.total")]=7.580173
+
+# kcal per gallon:
+all.df[,c("kcal.per.gal.cali","kcal.per.gal.us","kcal.per.gal.global")] = all.df[,"Energ_Kcal"]/all.df[,c("cali.total","us.total","global.total")]
+# gallon per kcal:
+all.df[,c("gal.per.kcal.cali","gal.per.kcal.us","gal.per.kcal.global")] = all.df[,c("cali.total","us.total","global.total")]/all.df[,"Energ_Kcal"]
+# protein grams per gallon:
+all.df[,c("gprotein.per.gal.cali","gprotein.per.gal.us","gprotein.per.gal.global")] = all.df[,"Protein_g"]/all.df[,c("cali.total","us.total","global.total")]
+# gallons per gram of protein:
+all.df[,c("gal.per.gprotein.cali","gal.per.gprotein.us","gal.per.gprotein.global")] = all.df[,c("cali.total","us.total","global.total")]/all.df[,"Protein_g"]
+# fat grams per gallon:
+all.df[,c("gfat.per.gal.cali","gfat.per.gal.us","gfat.per.gal.global")] = all.df[,"Lipid_Tot_g"]/all.df[,c("cali.total","us.total","global.total")]
+# gallons per gram of fat:
+all.df[,c("gal.per.gfat.cali","gal.per.gfat.us","gal.per.gfat.global")] = all.df[,c("cali.total","us.total","global.total")]/all.df[,"Lipid_Tot_g"]
+# carb grams per gallon:
+all.df[,c("gcarbs.per.gal.cali","gcarbs.per.gal.us","gcarbs.per.gal.global")] = all.df[,"Carbohydrt_g"]/all.df[,c("cali.total","us.total","global.total")]
+# gallons per gram of carbohydrates:
+all.df[,c("gal.per.gcarbs.cali","gal.per.gcarbs.us","gal.per.gcarbs.global")] = all.df[,c("cali.total","us.total","global.total")]/all.df[,"Carbohydrt_g"]
+```
+
+***
+
+The graphic below presents the average gallons of water required to produce one nutritional calorie of 78 food products of the United States. All food products in the LA Times graphic (referenced above) are included below except sparkling wine, for which nutritional information was not available in the USDA's NDB, and goat meat, for which U.S. water footprint information was not available in Mekonnen and Hoekstra's dataset.
+
+Calorie for Calorie, asparagus requires the most water to produce, followed by mangoes, beef, lamb, and pork. Dates require the least water per kcal, with garlic, carrots, pineapples, and onions not far behind.
+
+```{r galperkcal, fig.cap="Average gallons of water required in the U.S. to produce one Calorie, listed by food product and category", fig.width=6, fig.height=8.5, out.width = '600px', out.height = '850px', dpi=300, fig.align='center', message=FALSE, warning=FALSE, echo=FALSE, cache=FALSE}
+all.df = transform(all.df, custom.descrip.x = reorder(custom.descrip.x, kcal.per.gal.us))
+
+ggplot(subset(all.df, !is.na(gal.per.kcal.us)),
+ 		aes(x = custom.descrip.x, fill = custom.categ.x)) +
+ 	geom_bar(stat="identity", width = 0.75,
+ 		aes(y=gal.per.kcal.us, ymax=gal.per.kcal.us), position="dodge") +
+    geom_text(aes(x=custom.descrip.x, y=gal.per.kcal.us, label=custom.descrip.x), size=2.5, hjust=-0.1) +
+ 	scale_x_discrete("", expand = c(0.005, 0.005)) +
+ 	scale_y_continuous("Gallons of water per Calorie",
+ 		expand = c(0, 0),
+ 		limits = c(0, max(all.df$gal.per.kcal.us,na.rm=TRUE)+0.45)) +
+ 	# scale_fill_brewer("", palette="Set2") +
+	scale_fill_hue("", h=c(30, 300), c = 65, l = 75, h.start=125) +
+ 	coord_flip() + theme_classic() +
+ 	theme(axis.text.y = element_blank(),
+ 		axis.title.y=element_blank(),
+ 		axis.line.y=element_blank(),
+ 		axis.ticks.y=element_blank(),
+ 		legend.position=c(0.8, 0.7),
+ 		axis.text.x = element_text(size=10),
+ 		legend.text=element_text(size=11)) +
+ 	ggtitle("Average gallons of water required in the U.S.\nto produce one Calorie,\nlisted by food product and category")
+# ggsave(filename = "gal_to_kcal_us.png", width = 6, height =7, units = "in", dpi = 300)
+```
+
+The second graphic, below, is more directly related to the California drought. It instead displays the average gallons of water used in California to produce one nutritional calorie of 64 food products. The food products included are a subset of those in the analogous U.S. figure, above, but are limited to those for which a California-specific average was included in Mekonnen and Hoekstra's dataset.
+
+```{r galperkcalcali, fig.cap="Average gallons of water required in California to produce one Calorie, listed by food product and category", fig.width=6, fig.height=8.5, out.width = '600px', out.height = '850px', dpi=300, fig.align='center', message=FALSE, warning=FALSE, echo=FALSE, cache=FALSE}
+all.df = transform(all.df, custom.descrip.x = reorder(custom.descrip.x, kcal.per.gal.cali))
+
+ggplot(subset(all.df, !is.na(gal.per.kcal.cali)),
+ 		aes(x = custom.descrip.x, fill = custom.categ.x)) +
+ 	geom_bar(stat="identity", width=0.75,
+ 		aes(y=gal.per.kcal.cali, ymax=gal.per.kcal.cali), position="dodge") +
+    geom_text(aes(x=custom.descrip.x, y=gal.per.kcal.cali, label=custom.descrip.x), size=2.5, hjust=-0.1) +
+ 	scale_x_discrete("", expand = c(0.005, 0.005)) +
+ 	scale_y_continuous("Gallons of water per Calorie",
+ 		expand = c(0, 0),
+ 		limits = c(0, max(all.df$gal.per.kcal.cali,na.rm=TRUE)+0.45)) +
+	scale_fill_hue("", h=c(30, 300), c = 65, l = 75, h.start=125,
+		drop=TRUE,
+		limits = levels(all.df$custom.categ.x)) +
+ 	coord_flip() + theme_classic() +
+ 	theme(axis.text.y = element_blank(),
+ 		axis.title.y=element_blank(),
+ 		axis.line.y=element_blank(),
+ 		axis.ticks.y=element_blank(),
+ 		legend.position=c(0.8, 0.7),
+ 		axis.text.x = element_text(size=10),
+ 		legend.text=element_text(size=10)) +
+ 	ggtitle("Average gallons of water required in California\nto produce one Calorie,\nlisted by food product and category")
+```
+
+The third graphic is similar to the two above, but includes the global average gallons of water needed to produce one nutritional calorie of 80 food products.
+
+```{r galperkcalglobal, fig.cap="Average gallons of water required globally to produce one Calorie, listed by food product and category", fig.width=6, fig.height=8.5, out.width = '600px', out.height = '850px', dpi=300, fig.align='center', message=FALSE, warning=FALSE, echo=FALSE, cache=FALSE}
+all.df = transform(all.df, custom.descrip.x = reorder(custom.descrip.x, kcal.per.gal.global))
+
+ggplot(subset(all.df, !is.na(gal.per.kcal.global)),
+ 		aes(x = custom.descrip.x, fill = custom.categ.x)) +
+ 	geom_bar(stat="identity", width=0.75,
+ 		aes(y=gal.per.kcal.global, ymax=gal.per.kcal.global), position="dodge") +
+    geom_text(aes(x=custom.descrip.x, y=gal.per.kcal.global, label=custom.descrip.x), size=2.5, hjust=-0.1) +
+ 	scale_x_discrete("", expand = c(0.005, 0.005)) +
+ 	scale_y_continuous("Gallons of water per Calorie",
+ 		expand = c(0, 0),
+ 		limits = c(0, max(all.df$gal.per.kcal.global,na.rm=TRUE)+0.45)) +
+ 	# scale_fill_brewer("", palette="Set2") +
+	scale_fill_hue("", h=c(30, 300), c = 65, l = 75, h.start=125) +
+ 	coord_flip() + theme_classic() +
+ 	theme(axis.text.y = element_blank(),
+ 		axis.title.y=element_blank(),
+ 		axis.line.y=element_blank(),
+ 		axis.ticks.y=element_blank(),
+ 		legend.position=c(0.8, 0.7),
+ 		axis.text.x = element_text(size=10),
+ 		legend.text=element_text(size=10)) +
+ 	ggtitle("Average gallons of water required globally\nto produce one Calorie,\nlisted by food product and category")
+```
+
+The graphic below displays a different take on nutritional content: the average gallons of water required, in the U.S., to produce one gram of protein in 18 foods in "protein-rich" food product categories. Hazelnuts, walnuts, and beef perform worst, while soy milk, chicken, and eggs are the most water-efficient "proteins."
+
+```{r galpergprotein, fig.cap="Average gallons of water required in the U.S. to produce one gram of protein, listed by food product and category", fig.width=6, fig.height=8.5, out.width = '600px', out.height = '850px', dpi=300, fig.align='center', message=FALSE, warning=FALSE, echo=FALSE, cache=FALSE}
+all.df = transform(all.df, custom.descrip.x = reorder(custom.descrip.x, gprotein.per.gal.us))
+
+ggplot(subset(all.df, is.finite(gal.per.gprotein.us)&(custom.categ.x%in%c("Dairy and Egg","Meat","Nuts and Seeds","Legumes"))),
+ 		aes(x = custom.descrip.x, fill = custom.categ.x)) +
+ 	geom_bar(stat="identity", width=0.75,
+ 		aes(y=gal.per.gprotein.us, ymax=gal.per.gprotein.us), position="dodge") +
+    geom_text(aes(x=custom.descrip.x, y=gal.per.gprotein.us, label=custom.descrip.x), size=2.5, hjust=-0.1) +
+ 	scale_x_discrete("", expand = c(0.005, 0.005)) +
+ 	scale_y_continuous("Gallons of water per gram of protein",
+ 		expand = c(0, 0),
+ 		limits = c(0, max(subset(all.df, is.finite(gal.per.gprotein.us))$gal.per.gprotein.us,na.rm=TRUE)+10)) +
+	scale_fill_hue("", h=c(30, 300), c = 65, l = 75, h.start=125,
+		drop=TRUE,
+		limits = levels(all.df$custom.categ.x)) +
+ 	coord_flip() + theme_classic() +
+ 	theme(axis.text.y = element_blank(),
+ 		axis.title.y=element_blank(),
+ 		axis.line.y=element_blank(),
+ 		axis.ticks.y=element_blank(),
+ 		legend.position=c(0.8, 0.7),
+ 		axis.text.x = element_text(size=10),
+ 		legend.text=element_text(size=10)) +
+ 	ggtitle("Average gallons of water required in the U.S.\nto produce one gram of protein,\nlisted by food product and category")
+```
+
+***
+
+## Additional details
+
+Water footprint data encompasses so-called "blue" (fresh surface and groundwater), "green" (rainwater), and "gray" (freshwater polluted by a product's production) water use, the sum of which is used here for simplicity. A more detailed analysis could investigate these types of water use separately. Further, farm animal product water use was available for three production systems (grazing, industrial, and mixed), the weighted average of which was used in this analysis.
+
+[Google's unit converter](https://www.google.com/search?q=unit+converter#q=cubic+meters+per+ton+to+gallons+per+100+grams) was used to calculate a "scaling factor" to convert the water footprint data from cubic meters of water per metric ton of food product to gallons of water per 100 grams of food product. The units used in the USDA's database were nutritional value (Calories, grams of protein, etc.) per 100 grams of food (edible portion). Food products were manually matched between the two databases. Subsequently, the quotient of these two metrics was calculated for each food product, yielding gallons of water needed to produce a given nutritional value unit.
+
+Note that via Ercin, Aldaya, & Hoekstra (2012), feedback received on twitter, and the [LA Times' correction on 12 April 2015](http://www.latimes.com/local/corrections/la-a4-correx-20150412-story.html), the figure for U.S. and global average gallons of water required to produce 100 grams of soy milk has been manually corrected from 84.92338 gal/100g to 7.580173 gal/100g.  This figure is for global, not U.S., production (China, France, and Canada).
+
+Code (as an RMarkdown file) and data files required to reproduce this analysis are available [on github](http://github.com/saraemoore/h2otofood).
+
+(**Update** 22 Aug 2016: this report has been regenerated as a blog post using ggplot2 v2.1.0 for all plots and readxl v0.1.1 for one problematic spreadsheet. The updated code to reproduce this analysis is available in [this website's github repository](https://github.com/saraemoore/saraemoore.github.io/tree/master/_source).)
+
+***
+
+## References
+
+### Data
+
+[Mekonnen, M.M. and Hoekstra, A.Y. (2011) The green, blue and grey water footprint of crops and derived crop products, Hydrology and Earth System Sciences, 15(5): 1577-1600.](http://waterfootprint.org/media/downloads/Mekonnen-Hoekstra-2011-WaterFootprintCrops_1.pdf)
+
+[Mekonnen, M.M. and Hoekstra, A.Y. (2010) The green, blue and grey water footprint of crops and derived crop products, Value of Water Research Report Series No. 47, UNESCO-IHE, Delft, the Netherlands.](http://www.waterfootprint.org/Reports/Report47-WaterFootprintCrops-Vol1.pdf)
+
+Data file used in this analysis: [Water footprints of crops and derived crop products (1996-2005)](http://waterfootprint.org/media/downloads/Report47-Appendix-II.zip)
+
+[Ercin, A.E., Aldaya, M.M. and Hoekstra, A.Y. (2012) The water footprint of soy milk and soy burger and equivalent animal products, Ecological Indicators, 18: 392−402.](http://waterfootprint.org/media/downloads/Ercin-et-al-2012-WaterFootprintSoy_1.pdf)
+
+[Mekonnen, M.M. and Hoekstra, A.Y. (2012) A global assessment of the water footprint of farm animal products, Ecosystems, 15(3): 401–415.](http://waterfootprint.org/media/downloads/Mekonnen-Hoekstra-2012-WaterFootprintFarmAnimalProducts_1.pdf)
+
+[Mekonnen, M.M. and Hoekstra, A.Y. (2010) The green, blue and grey water footprint of farm animals and animal products, Value of Water Research Report Series No. 48, UNESCO-IHE, Delft, the Netherlands.](http://waterfootprint.org/media/downloads/Report-48-WaterFootprint-AnimalProducts-Vol1.pdf)
+
+Data file used in this analysis: [Water footprints of farm animals and animal products (1996-2005)](http://waterfootprint.org/media/downloads/Report48-Appendix-V.zip)
+
+
+U.S. Department of Agriculture, Agricultural Research Service. 2014. USDA National Nutrient Database for Standard Reference, Release 27. [Nutrient Data Laboratory Home Page](http://www.ars.usda.gov/ba/bhnrc/ndl)
+
+Data file used in this analysis: [Abbreviated SR27, Excel version](https://www.ars.usda.gov/SP2UserFiles/Place/12354500/Data/SR27/dnload/sr27abxl.zip)
+
+### Software
+
+[R Core Team (2016). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria.](http://www.R-project.org/)
+
+[Hadley Wickham (2009). ggplot2: elegant graphics for data analysis. Springer New York.](http://had.co.nz/ggplot2/book)
+
+[Yihui Xie (2016). knitr: A General-Purpose Package for Dynamic Report Generation in R. R package version 1.13.](http://CRAN.R-project.org/package=knitr)
+
+[Alexander Walker (2015). openxlsx: Read, Write and Edit XLSX Files. R package version 3.0.0.](http://CRAN.R-project.org/package=openxlsx)
+
+[Hadley Wickham (2016). readxl: Read Excel Files. R package version 0.1.1.](https://CRAN.R-project.org/package=readxl)
