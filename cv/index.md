@@ -29,11 +29,7 @@ output:
 
 {% include education.html %}
 
-{% include research.html %}
-
 {% include teaching.html %}
-
-{% include leadership.html %}
 
 {% include professional.html %}
 
