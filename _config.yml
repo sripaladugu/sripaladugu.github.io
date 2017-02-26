@@ -5,7 +5,7 @@
 #   extensions: [smart]
 markdown: kramdown
 highlighter: rouge
-# permalink: /:title.html
+permalink: /:title.html
 paginate: 5
 gems:
   - jekyll-paginate
@@ -26,14 +26,12 @@ title: Sri R. Paladugu
 author: Sri Paladugu
 name: Sri Paladugu
 description: Personal website of Sri Paladugu, Principal Scientist at Roche.
-#avatar: http://files.saraemoore.com/images/sara_wjwed_zoom_square.png
 avatar: images/sri_1651799721_o.jpg
 avatar_small: images/sri_1651799721_o.jpg
 email: spaladug@gmail.com
 email_full: mailto:spaladug@gmail.com
 website: sripaladugu.github.io
 website_full: http://sripaladugu.github.io/
-github: sripaladugu
 twitter: sri_paladugu
 linkedin: sri-paladugu-07164214
 # stackoverflow: username   #e.g: users/2735833/proton1h1

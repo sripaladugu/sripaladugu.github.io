@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Sri Paladugu" />
+  <meta name="description" content="Personal website of Sri Paladugu, Principal Scientist at Roche.">
+
+  
+    <title>Testing the limits of ggplot2's geom_boxplot</title>
+  
+
+  <!-- Bootstrap -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" />
+  <!--  <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Domine'> -->
+  <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Noto%20Serif' />
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+  <link rel="stylesheet" type="text/css" href="/css/main.css" />
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+
+  <!-- Highlight.js -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <link rel="canonical" href="/testing-the-limits-of-ggplot2s-geomboxplot.html">
+  <link rel="alternate" type="application/rss+xml" title="Sri R. Paladugu" href="/atom.xml">
+
+  <!-- Google Analytics -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+
+  <!-- Main Body-->
+  <body>
+    
+    <!-- Navbar header -->
+    <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand navbar-left" href="/">
+        <i class="fa fa-home"></i>HOME</a>
+    </div>
+    <div id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/blog">BLOG</a></li>
+        <li><a href="/cv">CV</a></li>
+        <li><a href="/projects">PROJECTS</a></li>
+        <li><a href="/about">ABOUT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <!-- Wrap all page content here -->
+    <div class="container">
+
+      <div class="container">
+	<div class="blog-post">
+		<h3>
+		  <strong><a href="/testing-the-limits-of-ggplot2s-geomboxplot.html">Testing the limits of ggplot2's geom_boxplot</a></strong>
+		</h3>
+	</div>
+	<div class="blog-title">
+		<h4>
+		March 25, 2014
+			&nbsp;&nbsp;
+			
+			 <span class="label label-success">ggplot2</span>
+			
+			 <span class="label label-success">r</span>
+			
+			 <span class="label label-success">dataviz</span>
+			
+		</h4>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="blogpost">
+			  <p>If you’re in the business of visualizing data, <a href="http://ggplot2.org">ggplot2</a> is great. There’s a bit of a learning curve, especially for those new to <a href="http://www.r-project.org/">R</a> – but it’s pretty redeeming when you finally master it and people actually <strong>want</strong> to look at your graphics. For aesthetics and consistency – but also partly out of pure stubbornness – I try to create all of my static plots with ggplot. This generally involves a lot of <a href="http://docs.ggplot2.org/current/">documentation</a>-consulting and <a href="http://stackoverflow.com/questions/tagged/ggplot2">stackoverflow</a>-searching, but luckily for me, the internet can usually provide at least one answer (if not ten) for most ggplot problems.</p>
+
+<p>Recently, though, I ran up against an unexpected roadblock when attempting to make a fairly simple boxplot. Here’s the idea: a continuous measure on the y-axis, boxes with a color fill defined by a two-level factor, and a numerical but discrete and non-linearly-increasing measure of time on the x-axis. Here’s some simulated data to demonstrate:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">data.df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">6</span><span class="p">,</span><span class="m">12</span><span class="p">,</span><span class="m">24</span><span class="p">,</span><span class="m">48</span><span class="p">),</span><span class="n">each</span><span class="o">=</span><span class="m">50</span><span class="p">),</span><span class="w">
+    </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="m">300</span><span class="p">,</span><span class="w"> </span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">),</span><span class="w">
+    </span><span class="n">measure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"A"</span><span class="p">,</span><span class="s2">"B"</span><span class="p">),</span><span class="n">each</span><span class="o">=</span><span class="m">25</span><span class="p">),</span><span class="w"> </span><span class="m">6</span><span class="p">)))</span></code></pre></figure>
+
+<p>My first approach was pretty much straight out of the <a href="http://docs.ggplot2.org/current/geom_boxplot.html">geom_boxplot docs</a>:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data.df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">factor</span><span class="p">(</span><span class="n">time</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_boxplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">measure</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Time (time units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Value (value units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_discrete</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Measure"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="http://files.saraemoore.com/figures/2014-03-25-testing-the-limits-of-ggplot2s-geomboxplot-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="700px" height="500px" /></p>
+
+<p>Of course, ggplot did exactly what I asked of it — it converted the “time” variable to a factor and placed each unique level on the plot without regard to how they were related numerically. OK, let’s try this again. We need the x-axis variable to remain numerical.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data.df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_boxplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">measure</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Time (time units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Value (value units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_discrete</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Measure"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="http://files.saraemoore.com/figures/2014-03-25-testing-the-limits-of-ggplot2s-geomboxplot-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="700px" height="500px" /></p>
+
+<p>Wrong again. Maybe ggplot can be tricked into re-grouping the boxes by the unique times on the x-axis?</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data.df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_boxplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">measure</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="o">=</span><span class="n">factor</span><span class="p">(</span><span class="n">time</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Time (time units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Value (value units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_discrete</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Measure"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="http://files.saraemoore.com/figures/2014-03-25-testing-the-limits-of-ggplot2s-geomboxplot-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="700px" height="500px" /></p>
+
+<p>Apparently not. In a last ditch effort, I found <a href="http://stackoverflow.com/questions/10805643/ggplot2-add-color-to-boxplot-continuous-value-supplied-to-discrete-scale-er">this SO post</a> which, while not answering my question directly, prompted <a href="http://stackoverflow.com/questions/10805643/ggplot2-add-color-to-boxplot-continuous-value-supplied-to-discrete-scale-er#comment14070382_10806683">an interesting comment</a>. Specifically, the commenter suggested adding a <code class="highlighter-rouge">position</code> aesthetic for a factor version of the x-axis variable. In terms of this running example, that would look like the following:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data.df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_boxplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">time</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="n">measure</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Time (time units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Value (value units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_discrete</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Measure"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="http://files.saraemoore.com/figures/2014-03-25-testing-the-limits-of-ggplot2s-geomboxplot-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="700px" height="500px" /></p>
+
+<p>It works. Below is a slightly improved code snippet, along with the (correct!) boxplot it produces.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data.df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_boxplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">time</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="n">measure</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_x_continuous</span><span class="p">(</span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">data.df</span><span class="o">$</span><span class="n">time</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Time (time units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Value (value units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_discrete</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Measure"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="http://files.saraemoore.com/figures/2014-03-25-testing-the-limits-of-ggplot2s-geomboxplot-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="700px" height="500px" /></p>
+
+<p>(<strong>Update</strong> 22 Aug 2016: this post has been regenerated under ggplot2 v2.1.0 and edited for brevity.)</p>
+
+			   <hr>
+			   <div class="related-posts">
+				   <h5>Related Posts</h5>
+				   
+						<div class="row">
+							 <div class="col-sm-4 col-md-4 col-lg-4">
+								 <h6 style="text-align: right">
+								 	April 20, 2015
+								 </h6>
+							 </div>
+							 <div class="col-sm-8 col-md-8 col-lg-8">
+								 <h6 style="text-align: left">
+								 	<strong><a href="/what-not-to-eat-in-a-drought.html">What (not) to eat in a drought: water usage scaled by nutritional value of food products</a></strong>
+								 </h6>
+							 </div>
+						</div>
+					
+			   </div>
+			</div>
+		</div>
+	</div>
+	
+
+</div>
+
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted">Served by <a href="http://pages.github.com/">Github Pages</a>,
+            powered by <a href="http://jekyllrb.com/">Jekyll</a>, and styled with 
+            <a href="http://getbootstrap.com/">Bootstrap</a> + modified
+            <a href="http://www.github.com/biomadeira/sustain">sustain</a>
+            and <a href="http://github.com/biomadeira/vitae">vitae</a> themes.</p>
+        </div>
+    </div>
+</footer>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	  <script src="/js/docs.min.js"></script>
+    <script src="/js/main.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

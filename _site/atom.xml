@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  
+    <title type="text" xml:lang="en">Sri R. Paladugu</title>
+    <link type="application/atom+xml" rel="self" href="http://localhost:4000/atom.xml"/>
+  
+  <link href="http://localhost:4000/"/>
+  <id>http://localhost:4000/</id>
+  <updated>2017-02-25T18:20:07Z</updated>
+  <author>
+    <name>Sri Paladugu</name>
+    <email>spaladug@gmail.com</email>
+  </author>
+  <rights type="text">Copyright © 2017 Sri Paladugu. All rights reserved.</rights>
+  
+  <entry>
+  <title type="text">What (not) to eat in a drought: water usage scaled by nutritional value of food products</title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/what-not-to-eat-in-a-drought.html" />
+  <id>http://localhost:4000/what-not-to-eat-in-a-drought</id>
+  <published>2015-04-20T00:00:00Z</published>
+  <updated>2015-04-20T00:00:00Z</updated>
+  <content type="html"><![CDATA[ <p>The graphics below are an attempt to improve upon some of the recently published drought-related (info)graphics regarding water use for food production.  (Relevant examples include this <a href="http://graphics.latimes.com/food-water-footprint/">LA Times graphic</a> and <a href="http://www.latimes.com/local/lanow/la-me-g-how-water-hungry-are-californias-nuts-20150408-htmlstory.html">supplementary graphics on nuts</a>, published on 7 and 9 April 2015, respectively, and “<a href="http://www.wired.com/2015/04/wireds-guide-produce-wont-make-drought-worse/">Wired’s guide to produce that won’t make the drought worse</a>,” published on 15 April 2015.) The major issue with these approaches is the metric they employ: the number of gallons of water required to produce some weight (ounces, grams, etc.) of a given food.  The approach used below instead assesses the number of gallons of water required to produce a unit of nutritional value for each food (Calories or grams of protein, for example).</p>
+
+<p>To accomplish this, two major data sources were used.  The first is extensive <a href="http://waterfootprint.org">“water footprint” data by Mekonnen and Hoekstra</a> on both crops and farm animal products. This is the same data source used by the LA Times and Wired (above). The second data source was the <a href="http://ndb.nal.usda.gov/">USDA National Nutrient Database</a>.  More details, along with a full list of references, are provided at the end of this document.</p>
+
+<p>Notably, a “water footprint per kcal” approach, very similar to the one employed below, has been suggested and utilized in published works by Mekonnen and Hoekstra. Joanna Pearlstein, the author of the Wired article (referenced above), concedes that their infographic “doesn’t consider foods’ nutritional properties…. a water-intensive food that was also high-calorie and highly nutritious might be worth it.”</p>
+
+<hr />
+
+<p>The graphic below presents the average gallons of water required to produce one nutritional calorie of 78 food products of the United States. All food products in the LA Times graphic (referenced above) are included below except sparkling wine, for which nutritional information was not available in the USDA’s NDB, and goat meat, for which U.S. water footprint information was not available in Mekonnen and Hoekstra’s dataset.</p>
+
+<p>Calorie for Calorie, asparagus requires the most water to produce, followed by mangoes, beef, lamb, and pork. Dates require the least water per kcal, with garlic, carrots, pineapples, and onions not far behind.</p>
+
+<p><img src="http://files.saraemoore.com/figures/2015-04-20-what-not-to-eat-in-a-drought-galperkcal-1.png" title="Average gallons of water required in the U.S. to produce one Calorie, listed by food product and category" alt="Average gallons of water required in the U.S. to produce one Calorie, listed by food product and category" width="600px" height="850px" style="display: block; margin: auto;" /></p>
+
+<p>The second graphic, below, is more directly related to the California drought. It instead displays the average gallons of water used in California to produce one nutritional calorie of 64 food products. The food products included are a subset of those in the analogous U.S. figure, above, but are limited to those for which a California-specific average was included in Mekonnen and Hoekstra’s dataset.</p>
+
+<p><img src="http://files.saraemoore.com/figures/2015-04-20-what-not-to-eat-in-a-drought-galperkcalcali-1.png" title="Average gallons of water required in California to produce one Calorie, listed by food product and category" alt="Average gallons of water required in California to produce one Calorie, listed by food product and category" width="600px" height="850px" style="display: block; margin: auto;" /></p>
+
+<p>The third graphic is similar to the two above, but includes the global average gallons of water needed to produce one nutritional calorie of 80 food products.</p>
+
+<p><img src="http://files.saraemoore.com/figures/2015-04-20-what-not-to-eat-in-a-drought-galperkcalglobal-1.png" title="Average gallons of water required globally to produce one Calorie, listed by food product and category" alt="Average gallons of water required globally to produce one Calorie, listed by food product and category" width="600px" height="850px" style="display: block; margin: auto;" /></p>
+
+<p>The graphic below displays a different take on nutritional content: the average gallons of water required, in the U.S., to produce one gram of protein in 18 foods in “protein-rich” food product categories. Hazelnuts, walnuts, and beef perform worst, while soy milk, chicken, and eggs are the most water-efficient “proteins.”</p>
+
+<p><img src="http://files.saraemoore.com/figures/2015-04-20-what-not-to-eat-in-a-drought-galpergprotein-1.png" title="Average gallons of water required in the U.S. to produce one gram of protein, listed by food product and category" alt="Average gallons of water required in the U.S. to produce one gram of protein, listed by food product and category" width="600px" height="850px" style="display: block; margin: auto;" /></p>
+
+<hr />
+
+<h2 id="additional-details">Additional details</h2>
+
+<p>Water footprint data encompasses so-called “blue” (fresh surface and groundwater), “green” (rainwater), and “gray” (freshwater polluted by a product’s production) water use, the sum of which is used here for simplicity. A more detailed analysis could investigate these types of water use separately. Further, farm animal product water use was available for three production systems (grazing, industrial, and mixed), the weighted average of which was used in this analysis.</p>
+
+<p><a href="https://www.google.com/search?q=unit+converter#q=cubic+meters+per+ton+to+gallons+per+100+grams">Google’s unit converter</a> was used to calculate a “scaling factor” to convert the water footprint data from cubic meters of water per metric ton of food product to gallons of water per 100 grams of food product. The units used in the USDA’s database were nutritional value (Calories, grams of protein, etc.) per 100 grams of food (edible portion). Food products were manually matched between the two databases. Subsequently, the quotient of these two metrics was calculated for each food product, yielding gallons of water needed to produce a given nutritional value unit.</p>
+
+<p>Note that via Ercin, Aldaya, &amp; Hoekstra (2012), feedback received on twitter, and the <a href="http://www.latimes.com/local/corrections/la-a4-correx-20150412-story.html">LA Times’ correction on 12 April 2015</a>, the figure for U.S. and global average gallons of water required to produce 100 grams of soy milk has been manually corrected from 84.92338 gal/100g to 7.580173 gal/100g.  This figure is for global, not U.S., production (China, France, and Canada).</p>
+
+<p>Code (as an RMarkdown file) and data files required to reproduce this analysis are available <a href="http://github.com/saraemoore/h2otofood">on github</a>.</p>
+
+<p>(<strong>Update</strong> 22 Aug 2016: this report has been regenerated as a blog post using ggplot2 v2.1.0 for all plots and readxl v0.1.1 for one problematic spreadsheet. The updated code to reproduce this analysis is available in <a href="https://github.com/saraemoore/saraemoore.github.io/tree/master/_source">this website’s github repository</a>.)</p>
+
+<hr />
+
+<h2 id="references">References</h2>
+
+<h3 id="data">Data</h3>
+
+<p><a href="http://waterfootprint.org/media/downloads/Mekonnen-Hoekstra-2011-WaterFootprintCrops_1.pdf">Mekonnen, M.M. and Hoekstra, A.Y. (2011) The green, blue and grey water footprint of crops and derived crop products, Hydrology and Earth System Sciences, 15(5): 1577-1600.</a></p>
+
+<p><a href="http://www.waterfootprint.org/Reports/Report47-WaterFootprintCrops-Vol1.pdf">Mekonnen, M.M. and Hoekstra, A.Y. (2010) The green, blue and grey water footprint of crops and derived crop products, Value of Water Research Report Series No. 47, UNESCO-IHE, Delft, the Netherlands.</a></p>
+
+<p>Data file used in this analysis: <a href="http://waterfootprint.org/media/downloads/Report47-Appendix-II.zip">Water footprints of crops and derived crop products (1996-2005)</a></p>
+
+<p><a href="http://waterfootprint.org/media/downloads/Ercin-et-al-2012-WaterFootprintSoy_1.pdf">Ercin, A.E., Aldaya, M.M. and Hoekstra, A.Y. (2012) The water footprint of soy milk and soy burger and equivalent animal products, Ecological Indicators, 18: 392−402.</a></p>
+
+<p><a href="http://waterfootprint.org/media/downloads/Mekonnen-Hoekstra-2012-WaterFootprintFarmAnimalProducts_1.pdf">Mekonnen, M.M. and Hoekstra, A.Y. (2012) A global assessment of the water footprint of farm animal products, Ecosystems, 15(3): 401–415.</a></p>
+
+<p><a href="http://waterfootprint.org/media/downloads/Report-48-WaterFootprint-AnimalProducts-Vol1.pdf">Mekonnen, M.M. and Hoekstra, A.Y. (2010) The green, blue and grey water footprint of farm animals and animal products, Value of Water Research Report Series No. 48, UNESCO-IHE, Delft, the Netherlands.</a></p>
+
+<p>Data file used in this analysis: <a href="http://waterfootprint.org/media/downloads/Report48-Appendix-V.zip">Water footprints of farm animals and animal products (1996-2005)</a></p>
+
+<p>U.S. Department of Agriculture, Agricultural Research Service. 2014. USDA National Nutrient Database for Standard Reference, Release 27. <a href="http://www.ars.usda.gov/ba/bhnrc/ndl">Nutrient Data Laboratory Home Page</a></p>
+
+<p>Data file used in this analysis: <a href="https://www.ars.usda.gov/SP2UserFiles/Place/12354500/Data/SR27/dnload/sr27abxl.zip">Abbreviated SR27, Excel version</a></p>
+
+<h3 id="software">Software</h3>
+
+<p><a href="http://www.R-project.org/">R Core Team (2016). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria.</a></p>
+
+<p><a href="http://had.co.nz/ggplot2/book">Hadley Wickham (2009). ggplot2: elegant graphics for data analysis. Springer New York.</a></p>
+
+<p><a href="http://CRAN.R-project.org/package=knitr">Yihui Xie (2016). knitr: A General-Purpose Package for Dynamic Report Generation in R. R package version 1.13.</a></p>
+
+<p><a href="http://CRAN.R-project.org/package=openxlsx">Alexander Walker (2015). openxlsx: Read, Write and Edit XLSX Files. R package version 3.0.0.</a></p>
+
+<p><a href="https://CRAN.R-project.org/package=readxl">Hadley Wickham (2016). readxl: Read Excel Files. R package version 0.1.1.</a></p>
+ ]]></content>
+</entry>
+
+
+  <entry>
+  <title type="text">Testing the limits of ggplot2's geom_boxplot</title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/testing-the-limits-of-ggplot2s-geomboxplot.html" />
+  <id>http://localhost:4000/testing-the-limits-of-ggplot2s-geomboxplot</id>
+  <published>2014-03-25T03:03:04Z</published>
+  <updated>2014-03-25T03:03:04Z</updated>
+  <content type="html"><![CDATA[ <p>If you’re in the business of visualizing data, <a href="http://ggplot2.org">ggplot2</a> is great. There’s a bit of a learning curve, especially for those new to <a href="http://www.r-project.org/">R</a> – but it’s pretty redeeming when you finally master it and people actually <strong>want</strong> to look at your graphics. For aesthetics and consistency – but also partly out of pure stubbornness – I try to create all of my static plots with ggplot. This generally involves a lot of <a href="http://docs.ggplot2.org/current/">documentation</a>-consulting and <a href="http://stackoverflow.com/questions/tagged/ggplot2">stackoverflow</a>-searching, but luckily for me, the internet can usually provide at least one answer (if not ten) for most ggplot problems.</p>
+
+<p>Recently, though, I ran up against an unexpected roadblock when attempting to make a fairly simple boxplot. Here’s the idea: a continuous measure on the y-axis, boxes with a color fill defined by a two-level factor, and a numerical but discrete and non-linearly-increasing measure of time on the x-axis. Here’s some simulated data to demonstrate:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">data.df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">6</span><span class="p">,</span><span class="m">12</span><span class="p">,</span><span class="m">24</span><span class="p">,</span><span class="m">48</span><span class="p">),</span><span class="n">each</span><span class="o">=</span><span class="m">50</span><span class="p">),</span><span class="w">
+    </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="m">300</span><span class="p">,</span><span class="w"> </span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">),</span><span class="w">
+    </span><span class="n">measure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"A"</span><span class="p">,</span><span class="s2">"B"</span><span class="p">),</span><span class="n">each</span><span class="o">=</span><span class="m">25</span><span class="p">),</span><span class="w"> </span><span class="m">6</span><span class="p">)))</span></code></pre></figure>
+
+<p>My first approach was pretty much straight out of the <a href="http://docs.ggplot2.org/current/geom_boxplot.html">geom_boxplot docs</a>:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">data.df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">factor</span><span class="p">(</span><span class="n">time</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_boxplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">measure</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Time (time units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Value (value units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_discrete</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Measure"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="http://files.saraemoore.com/figures/2014-03-25-testing-the-limits-of-ggplot2s-geomboxplot-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="700px" height="500px" /></p>
+
+<p>Of course, ggplot did exactly what I asked of it — it converted the “time” variable to a factor and placed each unique level on the plot without regard to how they were related numerically. OK, let’s try this again. We need the x-axis variable to remain numerical.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data.df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_boxplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">measure</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Time (time units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Value (value units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_discrete</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Measure"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="http://files.saraemoore.com/figures/2014-03-25-testing-the-limits-of-ggplot2s-geomboxplot-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="700px" height="500px" /></p>
+
+<p>Wrong again. Maybe ggplot can be tricked into re-grouping the boxes by the unique times on the x-axis?</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data.df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_boxplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="n">measure</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="o">=</span><span class="n">factor</span><span class="p">(</span><span class="n">time</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Time (time units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Value (value units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_discrete</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Measure"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="http://files.saraemoore.com/figures/2014-03-25-testing-the-limits-of-ggplot2s-geomboxplot-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="700px" height="500px" /></p>
+
+<p>Apparently not. In a last ditch effort, I found <a href="http://stackoverflow.com/questions/10805643/ggplot2-add-color-to-boxplot-continuous-value-supplied-to-discrete-scale-er">this SO post</a> which, while not answering my question directly, prompted <a href="http://stackoverflow.com/questions/10805643/ggplot2-add-color-to-boxplot-continuous-value-supplied-to-discrete-scale-er#comment14070382_10806683">an interesting comment</a>. Specifically, the commenter suggested adding a <code class="highlighter-rouge">position</code> aesthetic for a factor version of the x-axis variable. In terms of this running example, that would look like the following:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data.df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_boxplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">time</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="n">measure</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Time (time units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Value (value units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_discrete</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Measure"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="http://files.saraemoore.com/figures/2014-03-25-testing-the-limits-of-ggplot2s-geomboxplot-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="700px" height="500px" /></p>
+
+<p>It works. Below is a slightly improved code snippet, along with the (correct!) boxplot it produces.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ggplot</span><span class="p">(</span><span class="n">data.df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="o">=</span><span class="n">time</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">geom_boxplot</span><span class="p">(</span><span class="n">aes</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">time</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="o">=</span><span class="n">measure</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_x_continuous</span><span class="p">(</span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">data.df</span><span class="o">$</span><span class="n">time</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Time (time units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Value (value units)"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+    </span><span class="n">scale_fill_discrete</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Measure"</span><span class="p">)</span></code></pre></figure>
+
+<p><img src="http://files.saraemoore.com/figures/2014-03-25-testing-the-limits-of-ggplot2s-geomboxplot-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="700px" height="500px" /></p>
+
+<p>(<strong>Update</strong> 22 Aug 2016: this post has been regenerated under ggplot2 v2.1.0 and edited for brevity.)</p>
+ ]]></content>
+</entry>
+
+
+
+</feed>
