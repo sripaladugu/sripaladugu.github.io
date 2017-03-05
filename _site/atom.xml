@@ -6,7 +6,7 @@
   
   <link href="http://localhost:4000/"/>
   <id>http://localhost:4000/</id>
-  <updated>2017-02-26T08:58:05Z</updated>
+  <updated>2017-03-05T13:31:40Z</updated>
   <author>
     <name>Sri Paladugu</name>
     <email>spaladug@gmail.com</email>
@@ -14,12 +14,36 @@
   <rights type="text">Copyright © 2017 Sri Paladugu. All rights reserved.</rights>
   
   <entry>
+  <title type="text">Python</title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/Python.html" />
+  <id>http://localhost:4000/Python</id>
+  <published>2017-03-02T00:00:00Z</published>
+  <updated>2017-03-02T00:00:00Z</updated>
+  <content type="html"><![CDATA[ <h4 id="python-pearls">Python Pearls</h4>
+<ol>
+  <li>Keep parameters with default values at the end of function.</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python">   <span class="k">def</span> <span class="nf">fn1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">z</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+           <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+        <span class="k">else</span><span class="p">:</span>
+           <span class="k">return</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">+</span><span class="n">z</span><span class="p">)</span>
+   <span class="n">fn1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+   <span class="n">fn1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+   </code></pre></figure>
+
+ ]]></content>
+</entry>
+
+
+  <entry>
   <title type="text">Pharmacotherapy IX</title>
   <link rel="alternate" type="text/html" href="http://localhost:4000/Pharmacotherapy-IX.html" />
   <id>http://localhost:4000/Pharmacotherapy-IX</id>
   <published>2017-02-26T00:00:00Z</published>
   <updated>2017-02-26T00:00:00Z</updated>
-  <content type="html"><![CDATA[ <p>*** Neuroanatomy Nomenclature</p>
+  <content type="html"><![CDATA[ <h3 id="neuroanatomy-nomenclature">Neuroanatomy Nomenclature</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>- Anterior/rostral: in the direction of nose/head
 - Posterior/caudal: in the direction of rear, back
@@ -31,6 +55,11 @@
 - Coronal: brain sectioned from lateral left -&gt; lateral right
 </code></pre>
 </div>
+
+<p><img src="../images/BrainSections.gif" title="Coronal and Sagittal Sections" alt="Brain Sections" /></p>
+
+<p><a href="http://www.bioon.com/bioline/neurosci/course/corhor.html"> CORONAL AND HORIZONTAL SECTIONS </a></p>
+
  ]]></content>
 </entry>
 
