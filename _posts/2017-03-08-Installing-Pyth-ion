@@ -1,0 +1,9 @@
+Installing Pyth-ion on Mac:
+1. Create a virtualenv
+2. pip install modules
+3. create file `~/.matplotlib/matplotlibrc` with the content: `backend: TkAgg`
+
+Installing Pyth-ion on Windows:
+1. Do not use virutal enviornments. They do not work properly on windows.
+2. Install Visual C++ 2014 redistributable packages.
+3. pip install all the necessary modules. pip install scipy, numpy, h5py from the following website: http://www.lfd.uci.edu/~gohlke/pythonlibs/ 
