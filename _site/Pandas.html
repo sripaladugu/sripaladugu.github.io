@@ -1,0 +1,2727 @@
+
+<h3 id="series">Series</h3>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+</code></pre>
+</div>
+
+<p>A Series is like a cross between a list and a dictionary. The items are stored in an order and there are labels 
+with which you can retrieve them. A Series object also has a name attribute.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Lion"</span><span class="p">,</span> <span class="s">"Tiger"</span><span class="p">,</span> <span class="s">"Monkey"</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">animals</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"The name of this Series: "</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>0      Lion
+1     Tiger
+2    Monkey
+3      None
+dtype: object
+The name of this Series:  None
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>0    1.0
+1    2.0
+2    3.0
+3    NaN
+dtype: float64
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">NaN</span> <span class="o">==</span> <span class="bp">None</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>False
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">np</span><span class="o">.</span><span class="n">NaN</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>False
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>True
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">sports</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Cricket'</span><span class="p">:</span> <span class="s">'India'</span><span class="p">,</span> <span class="s">'Football'</span><span class="p">:</span> <span class="s">'America'</span><span class="p">,</span> <span class="s">'Soccer'</span><span class="p">:</span> <span class="s">'Brazil'</span><span class="p">}</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">sports</span><span class="p">)</span>
+<span class="n">s</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Cricket       India
+Football    America
+Soccer       Brazil
+dtype: object
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">s</span><span class="o">.</span><span class="n">index</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Index(['India', 'America', 'Brazil'], dtype='object')
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s">'Cricket'</span><span class="p">,</span> <span class="s">'Football'</span><span class="p">,</span> <span class="s">'Soccer'</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[</span> <span class="s">'India'</span><span class="p">,</span> <span class="s">'America'</span><span class="p">,</span> <span class="s">'Brazil'</span><span class="p">])</span>
+<span class="n">s</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>India       Cricket
+America    Football
+Brazil       Soccer
+dtype: object
+</code></pre>
+</div>
+
+<h3 id="querying-a-series">Querying a Series</h3>
+
+<p>A pandas Series can be queried either by the index position or the index label. As we saw if you don’t give 
+an index to the series, the position and the label are effectively the same values. To query by numeric location, 
+starting at zero, use the iloc attribute. To query by the index label, you can use the loc attribute.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">s</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>'Cricket'
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">s</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">'America'</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>'Football'
+</code></pre>
+</div>
+
+<p>iloc and loc are not methods, they are attributes.</p>
+
+<p>Okay, so now we know how to get data out of the series. Let’s talk about working with the data. A common task is to want to consider all of the values inside of a series and want to do some sort of operation. This could be trying to find a certain number, summarizing data or transforming the data in some way. A typical programmatic approach to this would be to iterate over all the items in the series, and invoke the operation one is interested in. For instance, we could create a data frame of floating point values. Let’s think of these as prices for different products. We could write a little routine which iterates over all of the items in the series and adds them together to get a total. 
+This works, but it’s slow. Modern computers can do many tasks simultaneously, especially, but not only, tasks involving mathematics. Pandas and the underlying NumPy libraries support a method of computation called vectorization. Vectorization works with most of the functions in the NumPy library, including the sum function.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">10000</span><span class="p">))</span>
+<span class="n">s</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>0    651
+1    125
+2    498
+3    710
+4    610
+dtype: int64
+</code></pre>
+</div>
+
+<p>Magic functions begin with a percentage sign. If we type % sign and then hit the Tab key, we can see a list of the available magic functions. You could write your own magic functions too, but that’s a little bit outside of the scope of this course. We’re actually going to use what’s called a cellular magic function. These start with two percentage signs and modify a raptor code in the current Jupyter cell. The function we’re going to use is called timeit. And as you may have guessed from the name, this function will run our code a few times to determine, on average, how long it takes.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="o">%%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+    <span class="n">summary</span> <span class="o">+=</span> <span class="n">item</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>100 loops, best of 3: 1.41 ms per loop
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="o">%%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100</span>
+<span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>100 loops, best of 3: 143 µs per loop
+</code></pre>
+</div>
+
+<p>Related feature in Pandas and NumPy is called broadcasting. With broadcasting, you can apply an operation to every value in the series, changing the series. For instance, if we wanted to increase every random variable by 2, we could do so quickly using the += operator directly on the series object.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="o">%%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">10000</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">label</span><span class="p">,</span>  <span class="n">value</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>10 loops, best of 3: 27.3 ms per loop
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="o">%%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">10000</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span> <span class="o">+</span> <span class="mi">2</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>10 loops, best of 3: 838 ms per loop
+</code></pre>
+</div>
+
+<p>But if you find yourself iterating through a series, you should question whether you’re doing things in the best possible way. Here’s how we would do this using the series set value method.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="o">%%</span><span class="n">timeit</span> <span class="o">-</span><span class="n">n</span> <span class="mi">10</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">10000</span><span class="p">))</span>
+<span class="n">s</span> <span class="o">+=</span> <span class="mi">2</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>10 loops, best of 3: 456 µs per loop
+</code></pre>
+</div>
+
+<p>Amazing. Not only is it significantly faster, but it’s more concise and maybe even easier to read too. The typical mathematical operations you would expect are vectorized, and the NumPy documentation outlines what it takes to create vectorized functions of your own. One last note on using the indexing operators to access series data. The .loc attribute lets you not only modify data in place, but also add new data as well. If the value you pass in as the index doesn’t exist, then a new entry is added. And keep in mind, indices can have mixed types. While it’s important to be aware of the typing going on underneath, Pandas will automatically change the underlying NumPy types as appropriate.</p>
+
+<p>Mixed types are also possible</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">'Animal'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'Bear'</span>
+<span class="n">s</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>0            2
+1            1
+2            2
+Animal    Bear
+dtype: object
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">original_sports</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s">'Archery'</span><span class="p">:</span><span class="s">'Bhutan'</span><span class="p">,</span>
+                             <span class="s">'Golf'</span><span class="p">:</span> <span class="s">'Scotland'</span><span class="p">,</span>
+                             <span class="s">'Sumo'</span><span class="p">:</span> <span class="s">'Japan'</span><span class="p">})</span>
+<span class="n">cricket_loving_countries</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s">'Australia'</span><span class="p">,</span> <span class="s">'India'</span><span class="p">,</span> <span class="s">'England'</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s">'Cricket'</span><span class="p">,</span><span class="s">'Cricket'</span><span class="p">,</span><span class="s">'Cricket'</span><span class="p">])</span>
+<span class="n">all_countries</span> <span class="o">=</span> <span class="n">original_sports</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cricket_loving_countries</span><span class="p">)</span>
+<span class="n">all_countries</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Archery       Bhutan
+Golf        Scotland
+Sumo           Japan
+Cricket    Australia
+Cricket        India
+Cricket      England
+dtype: object
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">original_sports</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Archery      Bhutan
+Golf       Scotland
+Sumo          Japan
+dtype: object
+</code></pre>
+</div>
+
+<p>There are a couple of important considerations when using append. First, Pandas is going to take your series and try to infer the best data types to use. In this example, everything is a string, so there’s no problems here. Second, the append method doesn’t actually change the underlying series. It instead returns a new series which is made up of the two appended together. We can see this by going back and printing the original series of values and seeing that they haven’t changed. This is actually a significant issue for new Pandas users who are used to objects being changed in place. So watch out for it, not just with append but with other Pandas functions as well.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">all_countries</span><span class="p">[</span><span class="s">'Cricket'</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Cricket    Australia
+Cricket        India
+Cricket      England
+dtype: object
+</code></pre>
+</div>
+
+<p>Finally, we see that when we query the appended series for those who have cricket as their national sport, we don’t get a single value, but a series itself. This is actually very common, and if you have a relational database background, this is very similar to every table query resulting in a return set which itself is a table.</p>
+
+<h3 id="the-dataframe-data-structure">The DataFrame Data Structure</h3>
+
+<p>You can create a DataFrame in many different ways, some of which you might expect. For instance, you can use a group of series, where each series represents a row of data. Or you could use a group of dictionaries, where each dictionary represents a row of data.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">purchase_1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s">'Name'</span><span class="p">:</span><span class="s">'Kasi'</span><span class="p">,</span>
+                        <span class="s">'Item purchased'</span><span class="p">:</span> <span class="s">'Dog Food'</span><span class="p">,</span>
+                        <span class="s">'Cost'</span><span class="p">:</span> <span class="mf">22.50</span><span class="p">})</span>
+<span class="n">purchase_2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s">'Name'</span><span class="p">:</span><span class="s">'Pradeep'</span><span class="p">,</span>
+                        <span class="s">'Item purchased'</span><span class="p">:</span> <span class="s">'Cat Food'</span><span class="p">,</span>
+                        <span class="s">'Cost'</span><span class="p">:</span> <span class="mf">21.50</span><span class="p">})</span>
+<span class="n">purchase_3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s">'Name'</span><span class="p">:</span><span class="s">'Sri'</span><span class="p">,</span>
+                        <span class="s">'Item purchased'</span><span class="p">:</span> <span class="s">'Bird Food'</span><span class="p">,</span>
+                        <span class="s">'Cost'</span><span class="p">:</span> <span class="mf">5.50</span><span class="p">})</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">purchase_1</span><span class="p">,</span> <span class="n">purchase_2</span><span class="p">,</span> <span class="n">purchase_3</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s">'Store1'</span><span class="p">,</span><span class="s">'Store1'</span><span class="p">,</span><span class="s">'Store2'</span><span class="p">])</span>
+<span class="n">df</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cost</th>
+      <th>Item purchased</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Store1</th>
+      <td>22.5</td>
+      <td>Dog Food</td>
+      <td>Kasi</td>
+    </tr>
+    <tr>
+      <th>Store1</th>
+      <td>21.5</td>
+      <td>Cat Food</td>
+      <td>Pradeep</td>
+    </tr>
+    <tr>
+      <th>Store2</th>
+      <td>5.5</td>
+      <td>Bird Food</td>
+      <td>Sri</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">'Store2'</span><span class="p">])</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">'Store2'</span><span class="p">])</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Cost                    5.5
+Item purchased    Bird Food
+Name                    Sri
+Name: Store2, dtype: object
+
+
+
+
+
+pandas.core.series.Series
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">'Store1'</span><span class="p">])</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">'Store1'</span><span class="p">])</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>        Cost Item purchased     Name
+Store1  22.5       Dog Food     Kasi
+Store1  21.5       Cat Food  Pradeep
+
+
+
+
+
+pandas.core.frame.DataFrame
+</code></pre>
+</div>
+
+<p>What if we want to do column, for example we want to get a list of all the costs?</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="o">.</span><span class="n">T</span> <span class="c"># This essential turns your column names into indicies</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Store1</th>
+      <th>Store1</th>
+      <th>Store2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Cost</th>
+      <td>22.5</td>
+      <td>21.5</td>
+      <td>5.5</td>
+    </tr>
+    <tr>
+      <th>Item purchased</th>
+      <td>Dog Food</td>
+      <td>Cat Food</td>
+      <td>Bird Food</td>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <td>Kasi</td>
+      <td>Pradeep</td>
+      <td>Sri</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">'Cost'</span><span class="p">]</span> <span class="c"># We can then use the loc method</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Store1    22.5
+Store1    21.5
+Store2     5.5
+Name: Cost, dtype: object
+</code></pre>
+</div>
+
+<p>Since iloc and loc are used for row selection, the Panda’s developers reserved indexing operator directly on the DataFrame for column selection. In a Panda’s DataFrame, columns always have a name. So this selection is always label based, not as confusing as it was when using the square bracket operator on the series objects. For those familiar with relational databases, this operator is analogous to column projection.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'Item purchased'</span><span class="p">])</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'Item purchased'</span><span class="p">])</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Store1     Dog Food
+Store1     Cat Food
+Store2    Bird Food
+Name: Item purchased, dtype: object
+
+
+
+
+
+pandas.core.series.Series
+</code></pre>
+</div>
+
+<p>Finally, since the result of using the indexing operator is the DataFrame or series, you can chain operations together. For instance, we could have rewritten the query for all Store 1 costs as</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">'Store1'</span><span class="p">][</span><span class="s">'Cost'</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Store1    22.5
+Store1    21.5
+Name: Cost, dtype: float64
+</code></pre>
+</div>
+
+<p><strong>This looks pretty reasonable and gets us the result we wanted. But chaining can come with some costs and is best avoided if you can use another approach. In particular, chaining tends to cause Pandas to return a copy of the DataFrame instead of a view on the DataFrame. For selecting a data, this is not a big deal, though it might be slower than necessary. If you are changing data though, this is an important distinction and can be a source of error.</strong></p>
+
+<p>Here’s another method. As we saw, .loc does row selection, and it can take two parameters, the row index and the list of column names. .loc also supports slicing. If we wanted to select all rows, we can use a column to indicate a full slice from beginning to end. And then add the column name as the second parameter as a string. In fact, if we wanted to include multiply columns, we could do so in a list. And Pandas will bring back only the columns we have asked for.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s">'Name'</span><span class="p">,</span><span class="s">'Cost'</span><span class="p">]]</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Store1</th>
+      <td>Kasi</td>
+      <td>22.5</td>
+    </tr>
+    <tr>
+      <th>Store1</th>
+      <td>Pradeep</td>
+      <td>21.5</td>
+    </tr>
+    <tr>
+      <th>Store2</th>
+      <td>Sri</td>
+      <td>5.5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>So that’s selecting and projecting data from a DataFrame based on row and column labels. The key concepts to remember are that the rows and columns are really just for our benefit. Underneath this is just a two axis labeled array, and transposing the columns is easy. Also, consider the issue of chaining carefully, and try to avoid it, it can cause unpredictable results. Where your intent was to obtain a view of the data, but instead Pandas returns to you a copy. In the Panda’s world, friends don’t let friends chain calls. So if you see it, point it out, and share a less ambiguous solution.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s">'Store1'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cost</th>
+      <th>Item purchased</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Store2</th>
+      <td>5.5</td>
+      <td>Bird Food</td>
+      <td>Sri</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>It’s easy to delete data in series and DataFrames, and we can use the drop function to do so. This function takes a single parameter, which is the index or roll label, to drop. This is another tricky place for new users to pandas. The drop function doesn’t change the DataFrame by default. And instead, returns to you a copy of the DataFrame with the given rows removed. We can see that our original DataFrame is still intact. This is a very typical pattern in Pandas, where in place changes to a DataFrame are only done if need be, usually on changes involving indices. So it’s important to be aware of. Drop has two interesting optional parameters. The first is called in place, and if it’s set to true, the DataFrame will be updated in place, instead of a copy being returned. The second parameter is the axis, which should be dropped. By default, this value is 0, indicating the row axis. But you could change it to 1 if you want to drop a column.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s">'Cost'</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Item purchased</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Store1</th>
+      <td>Dog Food</td>
+      <td>Kasi</td>
+    </tr>
+    <tr>
+      <th>Store1</th>
+      <td>Cat Food</td>
+      <td>Pradeep</td>
+    </tr>
+    <tr>
+      <th>Store2</th>
+      <td>Bird Food</td>
+      <td>Sri</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>There is a second way to drop a column, however. And that’s directly through the use of the indexing operator, using the del keyword. This way of dropping data, however, takes immediate effect on the DataFrame and does not return a view.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">del</span> <span class="n">df</span><span class="p">[</span><span class="s">'Item purchased'</span><span class="p">]</span>
+<span class="n">df</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cost</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Store1</th>
+      <td>22.5</td>
+      <td>Kasi</td>
+    </tr>
+    <tr>
+      <th>Store1</th>
+      <td>21.5</td>
+      <td>Pradeep</td>
+    </tr>
+    <tr>
+      <th>Store2</th>
+      <td>5.5</td>
+      <td>Sri</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Finally, adding a new column to the DataFrame is as easy as assigning it to some value. For instance, if we wanted to add a new location as a column with default value of none, we could do so by using the assignment operator after the square brackets. This broadcasts the default value to the new column immediately.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'Location'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">df</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cost</th>
+      <th>Name</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Store1</th>
+      <td>22.5</td>
+      <td>Kasi</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>Store1</th>
+      <td>21.5</td>
+      <td>Pradeep</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>Store2</th>
+      <td>5.5</td>
+      <td>Sri</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>The common work flow is to read your data into a DataFrame then reduce this DataFrame to the particular columns or rows that you’re interested in working with. As you’ve seen, the Panda’s toolkit tries to give you views on a DataFrame. This is much faster than copying data and much more memory efficient too. But it does mean that if you’re manipulating the data you have to be aware that any changes to the DataFrame you’re working on may have an impact on the base data frame you used originally. Here’s an example using our same purchasing DataFrame from earlier. We can create a series based on just the cost category using the square brackets.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">costs</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'Cost'</span><span class="p">]</span>
+<span class="n">costs</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Store1    22.5
+Store1    21.5
+Store2     5.5
+Name: Cost, dtype: float64
+</code></pre>
+</div>
+
+<p>Then we can increase the cost in this series using broadcasting.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">costs</span> <span class="o">+=</span> <span class="mi">2</span>
+<span class="n">costs</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Store1    24.5
+Store1    23.5
+Store2     7.5
+Name: Cost, dtype: float64
+</code></pre>
+</div>
+
+<p>Now if we look at our original DataFrame, we see those costs have risen as well. This is an important consideration to watch out for. If you want to explicitly use a copy, then you should consider calling the copy method on the DataFrame for it first.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cost</th>
+      <th>Name</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Store1</th>
+      <td>24.5</td>
+      <td>Kasi</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>Store1</th>
+      <td>23.5</td>
+      <td>Pradeep</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>Store2</th>
+      <td>7.5</td>
+      <td>Sri</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>A common workflow is to read the dataset in, usually from some external file. We saw previously how you can do this using Python, and lists, and dictionaries. You can imagine how you might use those dictionaries to create a Pandas DataFrame. Thankfully, Pandas has built-in support for delimited files such as CSV files as well as a variety of other data formats including relational databases, Excel, and HTML tables. I’ve saved a CSV file called olympics.csv, which has data from Wikipedia that contains a summary list of the medal various countries have won at the Olympics. We can take a look at this file using the shell command cat. Which we can invoke directly using the exclamation point. What happens here is that when the Jupyter notebook sees a line beginning with an exclamation mark, it sends the rest of the line to the operating system shell for evaluation. So cat works on Linux and Macs.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="err">!</span><span class="n">cat</span> <span class="n">olympics</span><span class="o">.</span><span class="n">csv</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+,№ Summer,01 !,02 !,03 !,Total,№ Winter,01 !,02 !,03 !,Total,№ Games,01 !,02 !,03 !,Combined Total
+ Afghanistan ,14,0,0,2,2,0,0,0,0,0,14,0,0,2,2
+ Algeria ,13,5,4,8,17,3,0,0,0,0,16,5,4,8,17
+ Argentina ,24,21,25,28,74,18,0,0,0,0,42,21,25,28,74
+ Armenia ,6,2,5,7,14,6,0,0,0,0,12,2,5,7,14
+ Australasia  ,2,3,4,5,12,0,0,0,0,0,2,3,4,5,12
+ Australia  ,26,147,163,187,497,18,5,3,4,12,44,152,166,191,509
+ Austria ,27,18,33,36,87,22,59,78,81,218,49,77,111,117,305
+ Azerbaijan ,6,7,11,25,43,5,0,0,0,0,11,7,11,25,43
+ Bahamas ,16,6,2,6,14,0,0,0,0,0,16,6,2,6,14
+ Bahrain ,9,1,1,1,3,0,0,0,0,0,9,1,1,1,3
+ Barbados  ,12,0,0,1,1,0,0,0,0,0,12,0,0,1,1
+ Belarus ,6,12,27,38,77,6,6,4,5,15,12,18,31,43,92
+ Belgium ,26,40,53,55,148,20,1,1,3,5,46,41,54,58,153
+ Bermuda ,18,0,0,1,1,7,0,0,0,0,25,0,0,1,1
+ Bohemia  ,3,0,1,3,4,0,0,0,0,0,3,0,1,3,4
+ Botswana ,10,0,1,0,1,0,0,0,0,0,10,0,1,0,1
+ Brazil ,22,30,36,63,129,7,0,0,0,0,29,30,36,63,129
+ British West Indies  ,1,0,0,2,2,0,0,0,0,0,1,0,0,2,2
+ Bulgaria  ,20,51,86,80,217,19,1,2,3,6,39,52,88,83,223
+ Burundi ,6,1,1,0,2,0,0,0,0,0,6,1,1,0,2
+ Cameroon ,14,3,1,1,5,1,0,0,0,0,15,3,1,1,5
+ Canada ,26,63,102,136,301,22,62,56,52,170,48,125,158,188,471
+ Chile  ,23,2,7,4,13,16,0,0,0,0,39,2,7,4,13
+ China  ,10,224,164,153,541,10,12,22,19,53,20,236,186,172,594
+ Colombia ,19,5,8,14,27,1,0,0,0,0,20,5,8,14,27
+ Costa Rica ,15,1,1,2,4,6,0,0,0,0,21,1,1,2,4
+ Côte d'Ivoire  ,13,1,1,1,3,0,0,0,0,0,13,1,1,1,3
+ Croatia ,7,11,10,12,33,7,4,6,1,11,14,15,16,13,44
+ Cuba  ,20,77,68,75,220,0,0,0,0,0,20,77,68,75,220
+ Cyprus ,10,0,1,0,1,10,0,0,0,0,20,0,1,0,1
+ Czech Republic  ,6,15,17,23,55,6,7,9,8,24,12,22,26,31,79
+ Czechoslovakia  ,16,49,49,45,143,16,2,8,15,25,32,51,57,60,168
+ Denmark  ,27,45,74,75,194,13,0,1,0,1,40,45,75,75,195
+ Djibouti  ,8,0,0,1,1,0,0,0,0,0,8,0,0,1,1
+ Dominican Republic ,14,3,2,2,7,0,0,0,0,0,14,3,2,2,7
+ Ecuador ,14,1,1,0,2,0,0,0,0,0,14,1,1,0,2
+ Egypt  ,22,7,9,13,29,1,0,0,0,0,23,7,9,13,29
+ Eritrea ,5,0,0,1,1,0,0,0,0,0,5,0,0,1,1
+ Estonia ,12,9,9,16,34,9,4,2,1,7,21,13,11,17,41
+ Ethiopia ,13,22,10,21,53,2,0,0,0,0,15,22,10,21,53
+ Fiji ,14,1,0,0,1,3,0,0,0,0,17,1,0,0,1
+ Finland ,25,101,85,117,303,22,42,62,57,161,47,143,147,174,464
+ France  ,28,212,241,262,715,22,31,31,47,109,50,243,272,309,824
+ Gabon ,10,0,1,0,1,0,0,0,0,0,10,0,1,0,1
+ Georgia ,6,8,7,17,32,6,0,0,0,0,12,8,7,17,32
+ Germany  ,16,191,192,232,615,11,78,78,53,209,27,269,270,285,824
+ United Team of Germany  ,3,28,54,36,118,3,8,6,5,19,6,36,60,41,137
+ East Germany  ,5,153,129,127,409,6,39,36,35,110,11,192,165,162,519
+ West Germany  ,5,56,67,81,204,6,11,15,13,39,11,67,82,94,243
+ Ghana  ,14,0,1,3,4,1,0,0,0,0,15,0,1,3,4
+ Great Britain  ,28,263,295,289,847,22,10,4,12,26,50,273,299,301,873
+ Greece  ,28,33,43,40,116,18,0,0,0,0,46,33,43,40,116
+ Grenada ,9,1,1,0,2,0,0,0,0,0,9,1,1,0,2
+ Guatemala ,14,0,1,0,1,1,0,0,0,0,15,0,1,0,1
+ Guyana  ,17,0,0,1,1,0,0,0,0,0,17,0,0,1,1
+ Haiti  ,15,0,1,1,2,0,0,0,0,0,15,0,1,1,2
+ Hong Kong  ,16,1,1,1,3,4,0,0,0,0,20,1,1,1,3
+ Hungary ,26,175,147,169,491,22,0,2,4,6,48,175,149,173,497
+ Iceland ,20,0,2,2,4,17,0,0,0,0,37,0,2,2,4
+ India  ,24,9,7,12,28,9,0,0,0,0,33,9,7,12,28
+ Indonesia ,15,7,12,11,30,0,0,0,0,0,15,7,12,11,30
+ Iran  ,16,18,21,29,68,10,0,0,0,0,26,18,21,29,68
+ Iraq ,14,0,0,1,1,0,0,0,0,0,14,0,0,1,1
+ Ireland ,21,9,10,12,31,6,0,0,0,0,27,9,10,12,31
+ Israel ,16,1,1,7,9,6,0,0,0,0,22,1,1,7,9
+ Italy  ,27,206,178,193,577,22,37,34,43,114,49,243,212,236,691
+ Jamaica  ,17,22,33,22,77,7,0,0,0,0,24,22,33,22,77
+ Japan ,22,142,135,162,439,20,10,17,18,45,42,152,152,180,484
+ Jordan ,10,1,0,0,1,0,0,0,0,0,10,1,0,0,1
+ Kazakhstan ,6,14,21,25,60,6,1,3,3,7,12,15,24,28,67
+ Kenya ,14,31,38,31,100,3,0,0,0,0,17,31,38,31,100
+ Kosovo ,1,1,0,0,1,0,0,0,0,0,1,1,0,0,1
+ North Korea ,10,16,15,23,54,8,0,1,1,2,18,16,16,24,56
+ South Korea ,17,90,85,89,264,17,26,17,10,53,34,116,102,99,317
+ Kuwait ,12,0,0,2,2,0,0,0,0,0,12,0,0,2,2
+ Kyrgyzstan ,6,0,1,2,3,6,0,0,0,0,12,0,1,2,3
+ Latvia ,11,3,11,5,19,10,0,4,3,7,21,3,15,8,26
+ Lebanon ,17,0,2,2,4,16,0,0,0,0,33,0,2,2,4
+ Liechtenstein ,17,0,0,0,0,18,2,2,5,9,35,2,2,5,9
+ Lithuania ,9,6,7,12,25,8,0,0,0,0,17,6,7,12,25
+ Luxembourg  ,23,1,1,0,2,8,0,2,0,2,31,1,3,0,4
+ Macedonia ,6,0,0,1,1,5,0,0,0,0,11,0,0,1,1
+ Malaysia  ,13,0,7,4,11,0,0,0,0,0,13,0,7,4,11
+ Mauritius ,9,0,0,1,1,0,0,0,0,0,9,0,0,1,1
+ Mexico ,23,13,24,30,67,8,0,0,0,0,31,13,24,30,67
+ Moldova ,6,0,2,4,6,6,0,0,0,0,12,0,2,4,6
+ Mongolia ,13,2,10,14,26,13,0,0,0,0,26,2,10,14,26
+ Montenegro ,3,0,1,0,1,2,0,0,0,0,5,0,1,0,1
+ Morocco ,14,6,5,12,23,6,0,0,0,0,20,6,5,12,23
+ Mozambique ,10,1,0,1,2,0,0,0,0,0,10,1,0,1,2
+ Namibia ,7,0,4,0,4,0,0,0,0,0,7,0,4,0,4
+ Netherlands  ,26,85,92,108,285,20,37,38,35,110,46,122,130,143,395
+ Netherlands Antilles  ,13,0,1,0,1,2,0,0,0,0,15,0,1,0,1
+ New Zealand  ,23,46,27,44,117,15,0,1,0,1,38,46,28,44,118
+ Niger ,12,0,1,1,2,0,0,0,0,0,12,0,1,1,2
+ Nigeria ,16,3,9,12,24,0,0,0,0,0,16,3,9,12,24
+ Norway  ,25,56,49,47,152,22,118,111,100,329,47,174,160,147,481
+ Pakistan ,17,3,3,4,10,2,0,0,0,0,19,3,3,4,10
+ Panama ,17,1,0,2,3,0,0,0,0,0,17,1,0,2,3
+ Paraguay ,12,0,1,0,1,1,0,0,0,0,13,0,1,0,1
+ Peru  ,18,1,3,0,4,2,0,0,0,0,20,1,3,0,4
+ Philippines ,21,0,3,7,10,4,0,0,0,0,25,0,3,7,10
+ Poland ,21,66,85,131,282,22,6,7,7,20,43,72,92,138,302
+ Portugal ,24,4,8,12,24,7,0,0,0,0,31,4,8,12,24
+ Puerto Rico ,18,1,2,6,9,6,0,0,0,0,24,1,2,6,9
+ Qatar ,9,0,1,4,5,0,0,0,0,0,9,0,1,4,5
+ Romania ,21,89,95,122,306,20,0,0,1,1,41,89,95,123,307
+ Russia  ,6,147,126,154,427,6,49,40,35,124,12,196,166,189,551
+ Russian Empire  ,3,1,4,3,8,0,0,0,0,0,3,1,4,3,8
+ Soviet Union  ,9,395,319,296,1,010,9,78,57,59,194,18,473,376,355,1,204
+ Unified Team  ,1,45,38,29,112,1,9,6,8,23,2,54,44,37,135
+ Saudi Arabia ,11,0,1,2,3,0,0,0,0,0,11,0,1,2,3
+ Samoa ,9,0,1,0,1,0,0,0,0,0,9,0,1,0,1
+ Senegal ,14,0,1,0,1,5,0,0,0,0,19,0,1,0,1
+ Serbia  ,4,3,6,6,15,2,0,0,0,0,6,3,6,6,15
+ Serbia and Montenegro  ,3,2,4,3,9,3,0,0,0,0,6,2,4,3,9
+ Singapore ,16,1,2,2,5,0,0,0,0,0,16,1,2,2,5
+ Slovakia  ,6,9,11,8,28,6,2,2,1,5,12,11,13,9,33
+ Slovenia ,7,5,8,10,23,7,2,4,9,15,14,7,12,19,38
+ South Africa ,19,25,32,29,86,6,0,0,0,0,25,25,32,29,86
+ Spain  ,23,45,63,41,149,19,1,0,1,2,42,46,63,42,151
+ Sri Lanka  ,17,0,2,0,2,0,0,0,0,0,17,0,2,0,2
+ Sudan ,12,0,1,0,1,0,0,0,0,0,12,0,1,0,1
+ Suriname  ,12,1,0,1,2,0,0,0,0,0,12,1,0,1,2
+ Sweden  ,27,145,170,179,494,22,50,40,54,144,49,195,210,233,638
+ Switzerland ,28,50,75,67,192,22,50,40,48,138,50,100,115,115,330
+ Syria ,13,1,1,1,3,0,0,0,0,0,13,1,1,1,3
+ Chinese Taipei  ,14,5,7,12,24,11,0,0,0,0,25,5,7,12,24
+ Tajikistan ,6,1,1,2,4,4,0,0,0,0,10,1,1,2,4
+ Tanzania  ,13,0,2,0,2,0,0,0,0,0,13,0,2,0,2
+ Thailand ,16,9,8,14,31,3,0,0,0,0,19,9,8,14,31
+ Togo ,10,0,0,1,1,1,0,0,0,0,11,0,0,1,1
+ Tonga ,9,0,1,0,1,1,0,0,0,0,10,0,1,0,1
+ Trinidad and Tobago  ,17,3,5,11,19,3,0,0,0,0,20,3,5,11,19
+ Tunisia ,14,4,2,7,13,0,0,0,0,0,14,4,2,7,13
+ Turkey ,22,39,27,28,94,16,0,0,0,0,38,39,27,28,94
+ Uganda ,15,2,3,2,7,0,0,0,0,0,15,2,3,2,7
+ Ukraine ,6,35,30,55,120,6,2,1,4,7,12,37,31,59,127
+ United Arab Emirates ,9,1,0,1,2,0,0,0,0,0,9,1,0,1,2
+ United States  ,27,1,022,794,704,2,520,22,96,102,84,282,49,1,118,896,788,2,802
+ Uruguay ,21,2,2,6,10,1,0,0,0,0,22,2,2,6,10
+ Uzbekistan ,6,9,6,17,32,6,1,0,0,1,12,10,6,17,33
+ Venezuela ,18,2,3,10,15,4,0,0,0,0,22,2,3,10,15
+ Vietnam ,15,1,3,0,4,0,0,0,0,0,15,1,3,0,4
+ Virgin Islands ,12,0,1,0,1,7,0,0,0,0,19,0,1,0,1
+ Yugoslavia  ,16,26,29,28,83,14,0,3,1,4,30,26,32,29,87
+ Zambia  ,13,0,1,1,2,0,0,0,0,0,13,0,1,1,2
+ Zimbabwe  ,13,3,4,1,8,1,0,0,0,0,14,3,4,1,8
+ Independent Olympic Athletes  ,3,1,0,1,2,0,0,0,0,0,3,1,0,1,2
+ Independent Olympic Participants  ,1,0,1,2,3,0,0,0,0,0,1,0,1,2,3
+ Mixed team  ,3,8,5,4,17,0,0,0,0,0,3,8,5,4,17
+</code></pre>
+</div>
+
+<p>We see from the cat output that there seems to be a numeric list of columns followed by a bunch of column identifiers. The column identifiers have some odd looking characters in them. This is the unicode numero sign, which means number of. Then we have rows of data, all columns separated. We can read this into a DataFrame by calling the read_csv function of the module. When we look at the DataFrame we see that the first cell has an NaN in it since it’s an empty value, and the rows have been automatically indexed for us.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'olympics.csv'</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
+      <th>11</th>
+      <th>12</th>
+      <th>13</th>
+      <th>14</th>
+      <th>15</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>№ Summer</td>
+      <td>01 !</td>
+      <td>02 !</td>
+      <td>03 !</td>
+      <td>Total</td>
+      <td>№ Winter</td>
+      <td>01 !</td>
+      <td>02 !</td>
+      <td>03 !</td>
+      <td>Total</td>
+      <td>№ Games</td>
+      <td>01 !</td>
+      <td>02 !</td>
+      <td>03 !</td>
+      <td>Combined Total</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Afghanistan</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Algeria</td>
+      <td>13</td>
+      <td>5</td>
+      <td>4</td>
+      <td>8</td>
+      <td>17</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>16</td>
+      <td>5</td>
+      <td>4</td>
+      <td>8</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Argentina</td>
+      <td>24</td>
+      <td>21</td>
+      <td>25</td>
+      <td>28</td>
+      <td>74</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>42</td>
+      <td>21</td>
+      <td>25</td>
+      <td>28</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Armenia</td>
+      <td>6</td>
+      <td>2</td>
+      <td>5</td>
+      <td>7</td>
+      <td>14</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>12</td>
+      <td>2</td>
+      <td>5</td>
+      <td>7</td>
+      <td>14</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>It seems pretty clear that the first row of data in the DataFrame is what we really want to see as the column names. It also seems like the first column in the data is the country name, which we would like to make an index. Read csv has a number of parameters that we can use to indicate to Pandas how rows and columns should be labeled. For instance, we can use the index call to indicate which column should be the index and we can also use the header parameter to indicate which row from the data file should be used as the header.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'olympics.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>№ Summer</th>
+      <th>01 !</th>
+      <th>02 !</th>
+      <th>03 !</th>
+      <th>Total</th>
+      <th>№ Winter</th>
+      <th>01 !.1</th>
+      <th>02 !.1</th>
+      <th>03 !.1</th>
+      <th>Total.1</th>
+      <th>№ Games</th>
+      <th>01 !.2</th>
+      <th>02 !.2</th>
+      <th>03 !.2</th>
+      <th>Combined Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Afghanistan</th>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>Algeria</th>
+      <td>13</td>
+      <td>5</td>
+      <td>4</td>
+      <td>8</td>
+      <td>17</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>16</td>
+      <td>5</td>
+      <td>4</td>
+      <td>8</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>Argentina</th>
+      <td>24</td>
+      <td>21</td>
+      <td>25</td>
+      <td>28</td>
+      <td>74</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>42</td>
+      <td>21</td>
+      <td>25</td>
+      <td>28</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <th>Armenia</th>
+      <td>6</td>
+      <td>2</td>
+      <td>5</td>
+      <td>7</td>
+      <td>14</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>12</td>
+      <td>2</td>
+      <td>5</td>
+      <td>7</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>Australasia</th>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Now this data came from the all time Olympic games medal table on Wikipedia. If we head to the page we could see that instead of running gold, silver and bronze in the pages, these nice little icons with a one, a two, and a three in them In our csv file these were represented with the strings 01 !, 02 !, and so on. We see that the column values are repeated which really isn’t good practice. Panda’s recognize this in a panda.1 and .2 to make things more unique. But this labeling isn’t really as clear as it could be, so we should clean up the data file. We can of course do this just by going and editing the CSV file directly, but we can also set the column names using the Pandas name property. Panda stores a list of all of the columns in the .columns attribute.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Index(['№ Summer', '01 !', '02 !', '03 !', 'Total', '№ Winter', '01 !.1',
+       '02 !.1', '03 !.1', 'Total.1', '№ Games', '01 !.2', '02 !.2', '03 !.2',
+       'Combined Total'],
+      dtype='object')
+</code></pre>
+</div>
+
+<p>We can change the values of the column names by iterating over this list and calling the rename method of the data frame. Here we just iterate through all of the columns looking to see if they start with a 01, 02, 03 or numeric character. If they do, we can call rename and set the column parameters to a dictionary with the keys being the column we want to replace and the value being the new value we want. Here we’ll slice some of the old values in two, since we don’t want to lose the unique appended values. We’ll also set the ever-important in place parameter to true so Pandas knows to update this data frame directly.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="err">?</span>
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span><span class="s">'01'</span><span class="p">:</span> <span class="c"># if the first two letters are '01'</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">col</span><span class="p">:</span><span class="s">'Gold'</span><span class="o">+</span><span class="n">col</span><span class="p">[</span><span class="mi">4</span><span class="p">:]},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c">#mapping changes labels</span>
+    <span class="k">if</span> <span class="n">col</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span><span class="s">'02'</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">col</span><span class="p">:</span><span class="s">'Silver'</span><span class="o">+</span><span class="n">col</span><span class="p">[</span><span class="mi">4</span><span class="p">:]},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">col</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span><span class="s">'03'</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">col</span><span class="p">:</span><span class="s">'Bronze'</span><span class="o">+</span><span class="n">col</span><span class="p">[</span><span class="mi">4</span><span class="p">:]},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">col</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s">'№'</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">col</span><span class="p">:</span><span class="s">'#'</span><span class="o">+</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">:]},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th># Summer</th>
+      <th>Gold</th>
+      <th>Silver</th>
+      <th>Bronze</th>
+      <th>Total</th>
+      <th># Winter</th>
+      <th>Gold.1</th>
+      <th>Silver.1</th>
+      <th>Bronze.1</th>
+      <th>Total.1</th>
+      <th># Games</th>
+      <th>Gold.2</th>
+      <th>Silver.2</th>
+      <th>Bronze.2</th>
+      <th>Combined Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Afghanistan</th>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>Algeria</th>
+      <td>13</td>
+      <td>5</td>
+      <td>4</td>
+      <td>8</td>
+      <td>17</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>16</td>
+      <td>5</td>
+      <td>4</td>
+      <td>8</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>Argentina</th>
+      <td>24</td>
+      <td>21</td>
+      <td>25</td>
+      <td>28</td>
+      <td>74</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>42</td>
+      <td>21</td>
+      <td>25</td>
+      <td>28</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <th>Armenia</th>
+      <td>6</td>
+      <td>2</td>
+      <td>5</td>
+      <td>7</td>
+      <td>14</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>12</td>
+      <td>2</td>
+      <td>5</td>
+      <td>7</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>Australasia</th>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="querying-a-dataframe">Querying a DataFrame</h3>
+
+<p>Boolean masking is the heart of fast and efficient querying in NumPy. It’s analogous a bit to masking used in other computational areas. A Boolean mask is an array which can be of one dimension like a series, or two dimensions like a DataFrame, where each of the values in the array are either true or false. This array is essentially overlaid on top of the data structure that we’re querying. And any cell aligned with the true value will be admitted into our final result, and any sign aligned with a false value will not. Boolean masking is powerful conceptually and is the cornerstone of efficient NumPy and pandas querying. This technique is well used in other areas of computer science, for instance, in graphics. But it doesn’t really have an analogue in other traditional relational databases, so I think it’s worth pointing out here. Boolean masks are created by applying operators directly to the pandas series or DataFrame objects. For instance, in our Olympics data set, you might be interested in seeing only those countries who have achieved a gold medal at the summer Olympics.  To build a Boolean mask for this query, we project the gold column using the indexing operator and apply the greater than operator with a comparison value of zero. This is essentially broadcasting a comparison operator, greater than, with the results being returned as a Boolean series.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'Gold'</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> Afghanistan                           False
+ Algeria                                True
+ Argentina                              True
+ Armenia                                True
+ Australasia                            True
+ Australia                              True
+ Austria                                True
+ Azerbaijan                             True
+ Bahamas                                True
+ Bahrain                                True
+ Barbados                              False
+ Belarus                                True
+ Belgium                                True
+ Bermuda                               False
+ Bohemia                               False
+ Botswana                              False
+ Brazil                                 True
+ British West Indies                   False
+ Bulgaria                               True
+ Burundi                                True
+ Cameroon                               True
+ Canada                                 True
+ Chile                                  True
+ China                                  True
+ Colombia                               True
+ Costa Rica                             True
+ Côte d'Ivoire                          True
+ Croatia                                True
+ Cuba                                   True
+ Cyprus                                False
+                                       ...  
+ Sri Lanka                             False
+ Sudan                                 False
+ Suriname                               True
+ Sweden                                 True
+ Switzerland                            True
+ Syria                                  True
+ Chinese Taipei                         True
+ Tajikistan                             True
+ Tanzania                              False
+ Thailand                               True
+ Togo                                  False
+ Tonga                                 False
+ Trinidad and Tobago                    True
+ Tunisia                                True
+ Turkey                                 True
+ Uganda                                 True
+ Ukraine                                True
+ United Arab Emirates                   True
+ United States                          True
+ Uruguay                                True
+ Uzbekistan                             True
+ Venezuela                              True
+ Vietnam                                True
+ Virgin Islands                        False
+ Yugoslavia                             True
+ Zambia                                False
+ Zimbabwe                               True
+ Independent Olympic Athletes           True
+ Independent Olympic Participants      False
+ Mixed team                             True
+Name: Gold, dtype: bool
+</code></pre>
+</div>
+
+<p>The resultant series is indexed where the value of each cell is either true or false depending on whether a country has won at least one gold medal, and the index is the country name.</p>
+
+<p>So this builds us the Boolean mask, which is half the battle. What we want to do next is overlay that mask on the DataFrame. We can do this using the where function. The where function takes a Boolean mask as a condition, applies it to the DataFrame or series, and returns a new DataFrame or series of the same shape. Let’s apply this Boolean mask to our Olympics data and create a DataFrame of only those countries who have won a gold at a summer games.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">only_gold</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'Gold'</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">only_gold</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th># Summer</th>
+      <th>Gold</th>
+      <th>Silver</th>
+      <th>Bronze</th>
+      <th>Total</th>
+      <th># Winter</th>
+      <th>Gold.1</th>
+      <th>Silver.1</th>
+      <th>Bronze.1</th>
+      <th>Total.1</th>
+      <th># Games</th>
+      <th>Gold.2</th>
+      <th>Silver.2</th>
+      <th>Bronze.2</th>
+      <th>Combined Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Afghanistan</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Algeria</th>
+      <td>13.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>17.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>16.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>17.0</td>
+    </tr>
+    <tr>
+      <th>Argentina</th>
+      <td>24.0</td>
+      <td>21.0</td>
+      <td>25.0</td>
+      <td>28.0</td>
+      <td>74.0</td>
+      <td>18.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>42.0</td>
+      <td>21.0</td>
+      <td>25.0</td>
+      <td>28.0</td>
+      <td>74.0</td>
+    </tr>
+    <tr>
+      <th>Armenia</th>
+      <td>6.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>14.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>12.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>Australasia</th>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>12.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>12.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>We see that the resulting DataFrame keeps the original indexed values, and only data from countries that met the condition are retained. All of the countries which did not meet the condition have NaN data instead. This is okay. Most statistical functions built into the DataFrame object ignore values of NaN.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'Gold'</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>151
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">only_gold</span><span class="p">[</span><span class="s">'Gold'</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>109
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">only_gold</span> <span class="o">=</span> <span class="n">only_gold</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">only_gold</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th># Summer</th>
+      <th>Gold</th>
+      <th>Silver</th>
+      <th>Bronze</th>
+      <th>Total</th>
+      <th># Winter</th>
+      <th>Gold.1</th>
+      <th>Silver.1</th>
+      <th>Bronze.1</th>
+      <th>Total.1</th>
+      <th># Games</th>
+      <th>Gold.2</th>
+      <th>Silver.2</th>
+      <th>Bronze.2</th>
+      <th>Combined Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Algeria</th>
+      <td>13.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>17.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>16.0</td>
+      <td>5.0</td>
+      <td>4.0</td>
+      <td>8.0</td>
+      <td>17.0</td>
+    </tr>
+    <tr>
+      <th>Argentina</th>
+      <td>24.0</td>
+      <td>21.0</td>
+      <td>25.0</td>
+      <td>28.0</td>
+      <td>74.0</td>
+      <td>18.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>42.0</td>
+      <td>21.0</td>
+      <td>25.0</td>
+      <td>28.0</td>
+      <td>74.0</td>
+    </tr>
+    <tr>
+      <th>Armenia</th>
+      <td>6.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>14.0</td>
+      <td>6.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>12.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>7.0</td>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>Australasia</th>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>12.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>12.0</td>
+    </tr>
+    <tr>
+      <th>Australia</th>
+      <td>26.0</td>
+      <td>147.0</td>
+      <td>163.0</td>
+      <td>187.0</td>
+      <td>497.0</td>
+      <td>18.0</td>
+      <td>5.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>12.0</td>
+      <td>44.0</td>
+      <td>152.0</td>
+      <td>166.0</td>
+      <td>191.0</td>
+      <td>509.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Often we want to drop those rows which have no data. To do this, we can use the drop NA function. You can optionally provide drop NA the axis it should be considering. Remember that the axis is just an indicator for the columns or rows and that the default is zero, which means rows.</p>
+
+<p>When you find yourself talking about pandas and saying phrases like, often I want to, it’s quite likely the developers have included a shortcut for this common operation. For instance, in this example, we don’t actually have to use the where function explicitly. The pandas developers allow the indexing operator to take a Boolean mask as a value instead of just a list of column names.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">only_gold</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">'Gold'</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">only_gold</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th># Summer</th>
+      <th>Gold</th>
+      <th>Silver</th>
+      <th>Bronze</th>
+      <th>Total</th>
+      <th># Winter</th>
+      <th>Gold.1</th>
+      <th>Silver.1</th>
+      <th>Bronze.1</th>
+      <th>Total.1</th>
+      <th># Games</th>
+      <th>Gold.2</th>
+      <th>Silver.2</th>
+      <th>Bronze.2</th>
+      <th>Combined Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Algeria</th>
+      <td>13</td>
+      <td>5</td>
+      <td>4</td>
+      <td>8</td>
+      <td>17</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>16</td>
+      <td>5</td>
+      <td>4</td>
+      <td>8</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>Argentina</th>
+      <td>24</td>
+      <td>21</td>
+      <td>25</td>
+      <td>28</td>
+      <td>74</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>42</td>
+      <td>21</td>
+      <td>25</td>
+      <td>28</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <th>Armenia</th>
+      <td>6</td>
+      <td>2</td>
+      <td>5</td>
+      <td>7</td>
+      <td>14</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>12</td>
+      <td>2</td>
+      <td>5</td>
+      <td>7</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>Australasia</th>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>Australia</th>
+      <td>26</td>
+      <td>147</td>
+      <td>163</td>
+      <td>187</td>
+      <td>497</td>
+      <td>18</td>
+      <td>5</td>
+      <td>3</td>
+      <td>4</td>
+      <td>12</td>
+      <td>44</td>
+      <td>152</td>
+      <td>166</td>
+      <td>191</td>
+      <td>509</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c">#To get the no of countries who recieved at least one gold in Summer or Winter Olympics</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s">'Gold'</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="n">df</span><span class="p">[</span><span class="s">'Gold.1'</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">])</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>110
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c">#Are there any countries which won a gold in winter olympics but never in summer olympics</span>
+<span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s">'Gold'</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'Gold.1'</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)]</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th># Summer</th>
+      <th>Gold</th>
+      <th>Silver</th>
+      <th>Bronze</th>
+      <th>Total</th>
+      <th># Winter</th>
+      <th>Gold.1</th>
+      <th>Silver.1</th>
+      <th>Bronze.1</th>
+      <th>Total.1</th>
+      <th># Games</th>
+      <th>Gold.2</th>
+      <th>Silver.2</th>
+      <th>Bronze.2</th>
+      <th>Combined Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Liechtenstein</th>
+      <td>17</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>18</td>
+      <td>2</td>
+      <td>2</td>
+      <td>5</td>
+      <td>9</td>
+      <td>35</td>
+      <td>2</td>
+      <td>2</td>
+      <td>5</td>
+      <td>9</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Extremely important, and often an issue for new users, is to remember that each Boolean mask needs to be encased in parenthesis because of the order of operations. This can cause no end of frustration if you’re not used to it, so be careful.</p>
+
+<h3 id="indexing-dataframes">Indexing DataFrames</h3>
+
+<p>The index is essentially a row level label, and we know that rows correspond to axis zero. In our Olympics data, we indexed the data frame by the name of the country. Indices can either be inferred, such as when we create a new series without an index, in which case we get numeric values, or they can be set explicitly, like when we use the dictionary object to create the series, or when we loaded data from the CSV file and specified the header. Another option for setting an index is to use the set_index function. This function takes a list of columns and promotes those columns to an index. Set index is a destructive process, it doesn’t keep the current index. If you want to keep the current index, you need to manually create a new column and copy into it values from the index attribute. Let’s go back to our Olympics DataFrame. Let’s say that we don’t want to index the DataFrame by countries, but instead want to index by the number of gold medals that were won at summer games. First we need to preserve the country information into a new column. We can do this using the indexing operator or the string that has the column label. Then we can use the set_index to set index of the column to summer gold medal wins.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'country'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">'Gold'</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th># Summer</th>
+      <th>Silver</th>
+      <th>Bronze</th>
+      <th>Total</th>
+      <th># Winter</th>
+      <th>Gold.1</th>
+      <th>Silver.1</th>
+      <th>Bronze.1</th>
+      <th>Total.1</th>
+      <th># Games</th>
+      <th>Gold.2</th>
+      <th>Silver.2</th>
+      <th>Bronze.2</th>
+      <th>Combined Total</th>
+      <th>country</th>
+    </tr>
+    <tr>
+      <th>Gold</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>14</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>Afghanistan</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>13</td>
+      <td>4</td>
+      <td>8</td>
+      <td>17</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>16</td>
+      <td>5</td>
+      <td>4</td>
+      <td>8</td>
+      <td>17</td>
+      <td>Algeria</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>24</td>
+      <td>25</td>
+      <td>28</td>
+      <td>74</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>42</td>
+      <td>21</td>
+      <td>25</td>
+      <td>28</td>
+      <td>74</td>
+      <td>Argentina</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>6</td>
+      <td>5</td>
+      <td>7</td>
+      <td>14</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>12</td>
+      <td>2</td>
+      <td>5</td>
+      <td>7</td>
+      <td>14</td>
+      <td>Armenia</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>4</td>
+      <td>5</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>12</td>
+      <td>Australasia</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>You’ll see that when we create a new index from an existing column it appears that a new first row has been added with empty values. This isn’t quite what’s happening. And we know this in part because an empty value is actually rendered either as a none or an NaN if the data type of the column is numeric. What’s actually happened is that the index has a name. Whatever the column name was in the Jupiter notebook has just provided this in the output. We can get rid of the index completely by calling the function reset_index. This promotes the index into a column and creates a default numbered index.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Gold</th>
+      <th># Summer</th>
+      <th>Silver</th>
+      <th>Bronze</th>
+      <th>Total</th>
+      <th># Winter</th>
+      <th>Gold.1</th>
+      <th>Silver.1</th>
+      <th>Bronze.1</th>
+      <th>Total.1</th>
+      <th># Games</th>
+      <th>Gold.2</th>
+      <th>Silver.2</th>
+      <th>Bronze.2</th>
+      <th>Combined Total</th>
+      <th>country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>14</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>Afghanistan</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5</td>
+      <td>13</td>
+      <td>4</td>
+      <td>8</td>
+      <td>17</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>16</td>
+      <td>5</td>
+      <td>4</td>
+      <td>8</td>
+      <td>17</td>
+      <td>Algeria</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>21</td>
+      <td>24</td>
+      <td>25</td>
+      <td>28</td>
+      <td>74</td>
+      <td>18</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>42</td>
+      <td>21</td>
+      <td>25</td>
+      <td>28</td>
+      <td>74</td>
+      <td>Argentina</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>6</td>
+      <td>5</td>
+      <td>7</td>
+      <td>14</td>
+      <td>6</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>12</td>
+      <td>2</td>
+      <td>5</td>
+      <td>7</td>
+      <td>14</td>
+      <td>Armenia</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3</td>
+      <td>2</td>
+      <td>4</td>
+      <td>5</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>12</td>
+      <td>Australasia</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>One nice feature of pandas is that it has the option to do multi-level indexing. This is similar to composite keys in relational database systems. To create a multi-level index, we simply call set index and give it a list of columns that we’re interested in promoting to an index.</p>
+
+<p>Pandas will search through these in order, finding the distinct data and forming composite indices. A good example of this is often found when dealing with geographical data which is sorted by regions or demographics. Let’s change data sets and look at some census data for a better example. This data is stored in the file census.csv and comes from the United States Census Bureau. In particular, this is a breakdown of the population level data at the US county level. It’s a great example of how different kinds of data sets might be formatted when you’re trying to clean them. For instance, in this data set there are two summarized levels, one that contains summary data for the whole country. And one that contains summary data for each state, and one that contains summary data for each county.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'census.csv'</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SUMLEV</th>
+      <th>REGION</th>
+      <th>DIVISION</th>
+      <th>STATE</th>
+      <th>COUNTY</th>
+      <th>STNAME</th>
+      <th>CTYNAME</th>
+      <th>CENSUS2010POP</th>
+      <th>ESTIMATESBASE2010</th>
+      <th>POPESTIMATE2010</th>
+      <th>...</th>
+      <th>RDOMESTICMIG2011</th>
+      <th>RDOMESTICMIG2012</th>
+      <th>RDOMESTICMIG2013</th>
+      <th>RDOMESTICMIG2014</th>
+      <th>RDOMESTICMIG2015</th>
+      <th>RNETMIG2011</th>
+      <th>RNETMIG2012</th>
+      <th>RNETMIG2013</th>
+      <th>RNETMIG2014</th>
+      <th>RNETMIG2015</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>40</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>0</td>
+      <td>Alabama</td>
+      <td>Alabama</td>
+      <td>4779736</td>
+      <td>4780127</td>
+      <td>4785161</td>
+      <td>...</td>
+      <td>0.002295</td>
+      <td>-0.193196</td>
+      <td>0.381066</td>
+      <td>0.582002</td>
+      <td>-0.467369</td>
+      <td>1.030015</td>
+      <td>0.826644</td>
+      <td>1.383282</td>
+      <td>1.724718</td>
+      <td>0.712594</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Alabama</td>
+      <td>Autauga County</td>
+      <td>54571</td>
+      <td>54571</td>
+      <td>54660</td>
+      <td>...</td>
+      <td>7.242091</td>
+      <td>-2.915927</td>
+      <td>-3.012349</td>
+      <td>2.265971</td>
+      <td>-2.530799</td>
+      <td>7.606016</td>
+      <td>-2.626146</td>
+      <td>-2.722002</td>
+      <td>2.592270</td>
+      <td>-2.187333</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Alabama</td>
+      <td>Baldwin County</td>
+      <td>182265</td>
+      <td>182265</td>
+      <td>183193</td>
+      <td>...</td>
+      <td>14.832960</td>
+      <td>17.647293</td>
+      <td>21.845705</td>
+      <td>19.243287</td>
+      <td>17.197872</td>
+      <td>15.844176</td>
+      <td>18.559627</td>
+      <td>22.727626</td>
+      <td>20.317142</td>
+      <td>18.293499</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>5</td>
+      <td>Alabama</td>
+      <td>Barbour County</td>
+      <td>27457</td>
+      <td>27457</td>
+      <td>27341</td>
+      <td>...</td>
+      <td>-4.728132</td>
+      <td>-2.500690</td>
+      <td>-7.056824</td>
+      <td>-3.904217</td>
+      <td>-10.543299</td>
+      <td>-4.874741</td>
+      <td>-2.758113</td>
+      <td>-7.167664</td>
+      <td>-3.978583</td>
+      <td>-10.543299</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>7</td>
+      <td>Alabama</td>
+      <td>Bibb County</td>
+      <td>22915</td>
+      <td>22919</td>
+      <td>22861</td>
+      <td>...</td>
+      <td>-5.527043</td>
+      <td>-5.068871</td>
+      <td>-6.201001</td>
+      <td>-0.177537</td>
+      <td>0.177258</td>
+      <td>-5.088389</td>
+      <td>-4.363636</td>
+      <td>-5.403729</td>
+      <td>0.754533</td>
+      <td>1.107861</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 100 columns</p>
+</div>
+
+<p>I often find that I want to see a list of all the unique values in a given column. In this DataFrame, we see that the possible values for the sum level are using the unique function on the DataFrame. This is similar to the SQL distinct operator. Here we can run unique on the sum level of our current DataFrame and see that there are only two different values, 40 and 50.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="p">[</span><span class="s">'SUMLEV'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span> <span class="c">#40 belongs to state level data and 50 belongs to county level data</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>array([40, 50])
+</code></pre>
+</div>
+
+<p>Let’s get rid of all of the rows that are summaries at the state level and just keep the county data.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">'SUMLEV'</span><span class="p">]</span><span class="o">==</span><span class="mi">50</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SUMLEV</th>
+      <th>REGION</th>
+      <th>DIVISION</th>
+      <th>STATE</th>
+      <th>COUNTY</th>
+      <th>STNAME</th>
+      <th>CTYNAME</th>
+      <th>CENSUS2010POP</th>
+      <th>ESTIMATESBASE2010</th>
+      <th>POPESTIMATE2010</th>
+      <th>...</th>
+      <th>RDOMESTICMIG2011</th>
+      <th>RDOMESTICMIG2012</th>
+      <th>RDOMESTICMIG2013</th>
+      <th>RDOMESTICMIG2014</th>
+      <th>RDOMESTICMIG2015</th>
+      <th>RNETMIG2011</th>
+      <th>RNETMIG2012</th>
+      <th>RNETMIG2013</th>
+      <th>RNETMIG2014</th>
+      <th>RNETMIG2015</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Alabama</td>
+      <td>Autauga County</td>
+      <td>54571</td>
+      <td>54571</td>
+      <td>54660</td>
+      <td>...</td>
+      <td>7.242091</td>
+      <td>-2.915927</td>
+      <td>-3.012349</td>
+      <td>2.265971</td>
+      <td>-2.530799</td>
+      <td>7.606016</td>
+      <td>-2.626146</td>
+      <td>-2.722002</td>
+      <td>2.592270</td>
+      <td>-2.187333</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Alabama</td>
+      <td>Baldwin County</td>
+      <td>182265</td>
+      <td>182265</td>
+      <td>183193</td>
+      <td>...</td>
+      <td>14.832960</td>
+      <td>17.647293</td>
+      <td>21.845705</td>
+      <td>19.243287</td>
+      <td>17.197872</td>
+      <td>15.844176</td>
+      <td>18.559627</td>
+      <td>22.727626</td>
+      <td>20.317142</td>
+      <td>18.293499</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>5</td>
+      <td>Alabama</td>
+      <td>Barbour County</td>
+      <td>27457</td>
+      <td>27457</td>
+      <td>27341</td>
+      <td>...</td>
+      <td>-4.728132</td>
+      <td>-2.500690</td>
+      <td>-7.056824</td>
+      <td>-3.904217</td>
+      <td>-10.543299</td>
+      <td>-4.874741</td>
+      <td>-2.758113</td>
+      <td>-7.167664</td>
+      <td>-3.978583</td>
+      <td>-10.543299</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>7</td>
+      <td>Alabama</td>
+      <td>Bibb County</td>
+      <td>22915</td>
+      <td>22919</td>
+      <td>22861</td>
+      <td>...</td>
+      <td>-5.527043</td>
+      <td>-5.068871</td>
+      <td>-6.201001</td>
+      <td>-0.177537</td>
+      <td>0.177258</td>
+      <td>-5.088389</td>
+      <td>-4.363636</td>
+      <td>-5.403729</td>
+      <td>0.754533</td>
+      <td>1.107861</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>50</td>
+      <td>3</td>
+      <td>6</td>
+      <td>1</td>
+      <td>9</td>
+      <td>Alabama</td>
+      <td>Blount County</td>
+      <td>57322</td>
+      <td>57322</td>
+      <td>57373</td>
+      <td>...</td>
+      <td>1.807375</td>
+      <td>-1.177622</td>
+      <td>-1.748766</td>
+      <td>-2.062535</td>
+      <td>-1.369970</td>
+      <td>1.859511</td>
+      <td>-0.848580</td>
+      <td>-1.402476</td>
+      <td>-1.577232</td>
+      <td>-0.884411</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 100 columns</p>
+</div>
+
+<p>Also while this data set is interesting for a number of different reasons, let’s reduce the data that we’re going to look at to just the total population estimates and the total number of births. We can do this by creating a list of column names that we want to keep then project those and assign the resulting DataFrame to our df variable.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">columns_to_keep</span> <span class="o">=</span> <span class="p">[</span><span class="s">'STNAME'</span><span class="p">,</span>
+                   <span class="s">'CTYNAME'</span><span class="p">,</span>
+                   <span class="s">'BIRTHS2010'</span><span class="p">,</span>
+                   <span class="s">'BIRTHS2011'</span><span class="p">,</span>
+                   <span class="s">'BIRTHS2012'</span><span class="p">,</span>
+                   <span class="s">'BIRTHS2013'</span><span class="p">,</span>
+                   <span class="s">'BIRTHS2014'</span><span class="p">,</span>
+                   <span class="s">'BIRTHS2015'</span><span class="p">,</span>
+                   <span class="s">'POPESTIMATE2010'</span><span class="p">,</span>
+                   <span class="s">'POPESTIMATE2011'</span><span class="p">,</span>
+                   <span class="s">'POPESTIMATE2012'</span><span class="p">,</span>
+                   <span class="s">'POPESTIMATE2013'</span><span class="p">,</span>
+                   <span class="s">'POPESTIMATE2014'</span><span class="p">,</span>
+                   <span class="s">'POPESTIMATE2015'</span>
+                  <span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">columns_to_keep</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>STNAME</th>
+      <th>CTYNAME</th>
+      <th>BIRTHS2010</th>
+      <th>BIRTHS2011</th>
+      <th>BIRTHS2012</th>
+      <th>BIRTHS2013</th>
+      <th>BIRTHS2014</th>
+      <th>BIRTHS2015</th>
+      <th>POPESTIMATE2010</th>
+      <th>POPESTIMATE2011</th>
+      <th>POPESTIMATE2012</th>
+      <th>POPESTIMATE2013</th>
+      <th>POPESTIMATE2014</th>
+      <th>POPESTIMATE2015</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Alabama</td>
+      <td>Autauga County</td>
+      <td>151</td>
+      <td>636</td>
+      <td>615</td>
+      <td>574</td>
+      <td>623</td>
+      <td>600</td>
+      <td>54660</td>
+      <td>55253</td>
+      <td>55175</td>
+      <td>55038</td>
+      <td>55290</td>
+      <td>55347</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Alabama</td>
+      <td>Baldwin County</td>
+      <td>517</td>
+      <td>2187</td>
+      <td>2092</td>
+      <td>2160</td>
+      <td>2186</td>
+      <td>2240</td>
+      <td>183193</td>
+      <td>186659</td>
+      <td>190396</td>
+      <td>195126</td>
+      <td>199713</td>
+      <td>203709</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Alabama</td>
+      <td>Barbour County</td>
+      <td>70</td>
+      <td>335</td>
+      <td>300</td>
+      <td>283</td>
+      <td>260</td>
+      <td>269</td>
+      <td>27341</td>
+      <td>27226</td>
+      <td>27159</td>
+      <td>26973</td>
+      <td>26815</td>
+      <td>26489</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Alabama</td>
+      <td>Bibb County</td>
+      <td>44</td>
+      <td>266</td>
+      <td>245</td>
+      <td>259</td>
+      <td>247</td>
+      <td>253</td>
+      <td>22861</td>
+      <td>22733</td>
+      <td>22642</td>
+      <td>22512</td>
+      <td>22549</td>
+      <td>22583</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Alabama</td>
+      <td>Blount County</td>
+      <td>183</td>
+      <td>744</td>
+      <td>710</td>
+      <td>646</td>
+      <td>618</td>
+      <td>603</td>
+      <td>57373</td>
+      <td>57711</td>
+      <td>57776</td>
+      <td>57734</td>
+      <td>57658</td>
+      <td>57673</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>The US Census data breaks down estimates of population data by state and county. We can load the data and set the index to be a combination of the state and county values and see how pandas handles it in a DataFrame. We do this by creating a list of the column identifiers we want to have indexed. And then calling set index with this list and assigning the output as appropriate. We see here that we have a dual index, first the state name and then the county name.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s">'STNAME'</span><span class="p">,</span><span class="s">'CTYNAME'</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>BIRTHS2010</th>
+      <th>BIRTHS2011</th>
+      <th>BIRTHS2012</th>
+      <th>BIRTHS2013</th>
+      <th>BIRTHS2014</th>
+      <th>BIRTHS2015</th>
+      <th>POPESTIMATE2010</th>
+      <th>POPESTIMATE2011</th>
+      <th>POPESTIMATE2012</th>
+      <th>POPESTIMATE2013</th>
+      <th>POPESTIMATE2014</th>
+      <th>POPESTIMATE2015</th>
+    </tr>
+    <tr>
+      <th>STNAME</th>
+      <th>CTYNAME</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">Alabama</th>
+      <th>Autauga County</th>
+      <td>151</td>
+      <td>636</td>
+      <td>615</td>
+      <td>574</td>
+      <td>623</td>
+      <td>600</td>
+      <td>54660</td>
+      <td>55253</td>
+      <td>55175</td>
+      <td>55038</td>
+      <td>55290</td>
+      <td>55347</td>
+    </tr>
+    <tr>
+      <th>Baldwin County</th>
+      <td>517</td>
+      <td>2187</td>
+      <td>2092</td>
+      <td>2160</td>
+      <td>2186</td>
+      <td>2240</td>
+      <td>183193</td>
+      <td>186659</td>
+      <td>190396</td>
+      <td>195126</td>
+      <td>199713</td>
+      <td>203709</td>
+    </tr>
+    <tr>
+      <th>Barbour County</th>
+      <td>70</td>
+      <td>335</td>
+      <td>300</td>
+      <td>283</td>
+      <td>260</td>
+      <td>269</td>
+      <td>27341</td>
+      <td>27226</td>
+      <td>27159</td>
+      <td>26973</td>
+      <td>26815</td>
+      <td>26489</td>
+    </tr>
+    <tr>
+      <th>Bibb County</th>
+      <td>44</td>
+      <td>266</td>
+      <td>245</td>
+      <td>259</td>
+      <td>247</td>
+      <td>253</td>
+      <td>22861</td>
+      <td>22733</td>
+      <td>22642</td>
+      <td>22512</td>
+      <td>22549</td>
+      <td>22583</td>
+    </tr>
+    <tr>
+      <th>Blount County</th>
+      <td>183</td>
+      <td>744</td>
+      <td>710</td>
+      <td>646</td>
+      <td>618</td>
+      <td>603</td>
+      <td>57373</td>
+      <td>57711</td>
+      <td>57776</td>
+      <td>57734</td>
+      <td>57658</td>
+      <td>57673</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>An immediate question which comes up is how we can query this DataFrame. For instance, we saw previously that the loc attribute of the DataFrame can take multiple arguments. And it could query both the row and the columns. When you use a MultiIndex, you must provide the arguments in order by the level you wish to query. Inside of the index, each column is called a level and the outermost column is level zero. For instance, if we want to see the population results from Washtenaw County, you’d want to the first argument as the state of Michigan.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">'Michigan'</span><span class="p">,</span> <span class="s">'Washtenaw County'</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BIRTHS2010            977
+BIRTHS2011           3826
+BIRTHS2012           3780
+BIRTHS2013           3662
+BIRTHS2014           3683
+BIRTHS2015           3709
+POPESTIMATE2010    345563
+POPESTIMATE2011    349048
+POPESTIMATE2012    351213
+POPESTIMATE2013    354289
+POPESTIMATE2014    357029
+POPESTIMATE2015    358880
+Name: (Michigan, Washtenaw County), dtype: int64
+</code></pre>
+</div>
+
+<p>You might be interested in just comparing two counties. For instance, Washtenaw and Wayne County which covers Detroit. To do this, we can pass the loc method, a list of tuples which describe the indices we wish to query. Since we have a MultiIndex of two values, the state and the county, we need to provide two values as each element of our filtering list.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[(</span><span class="s">'Michigan'</span><span class="p">,</span><span class="s">'Washtenaw County'</span><span class="p">),(</span><span class="s">'Michigan'</span><span class="p">,</span><span class="s">'Wayne County'</span><span class="p">)]]</span>
+</code></pre>
+</div>
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>BIRTHS2010</th>
+      <th>BIRTHS2011</th>
+      <th>BIRTHS2012</th>
+      <th>BIRTHS2013</th>
+      <th>BIRTHS2014</th>
+      <th>BIRTHS2015</th>
+      <th>POPESTIMATE2010</th>
+      <th>POPESTIMATE2011</th>
+      <th>POPESTIMATE2012</th>
+      <th>POPESTIMATE2013</th>
+      <th>POPESTIMATE2014</th>
+      <th>POPESTIMATE2015</th>
+    </tr>
+    <tr>
+      <th>STNAME</th>
+      <th>CTYNAME</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">Michigan</th>
+      <th>Washtenaw County</th>
+      <td>977</td>
+      <td>3826</td>
+      <td>3780</td>
+      <td>3662</td>
+      <td>3683</td>
+      <td>3709</td>
+      <td>345563</td>
+      <td>349048</td>
+      <td>351213</td>
+      <td>354289</td>
+      <td>357029</td>
+      <td>358880</td>
+    </tr>
+    <tr>
+      <th>Wayne County</th>
+      <td>5918</td>
+      <td>23819</td>
+      <td>23270</td>
+      <td>23377</td>
+      <td>23607</td>
+      <td>23586</td>
+      <td>1815199</td>
+      <td>1801273</td>
+      <td>1792514</td>
+      <td>1775713</td>
+      <td>1766008</td>
+      <td>1759335</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Okay so that’s how hierarchical indices work in a nutshell. They’re a special part of the pandas library which I think can make management and reasoning about data easier. Of course hierarchical labeling isn’t just for rows. For example, you can transpose this matrix and now have hierarchical column labels. And projecting a single column which has these labels works exactly the way you would expect it to.</p>
