@@ -1,3 +1,6 @@
 ##### Videos:
-    1. <a href="http://serious-science.org/author/marz"> Non-coding RNAs (Serious Science) </a>
-    2. <a href="https://www.broadinstitute.org/videos"> Broad Institute Videos </a>
+    1. [Non-coding RNAs (Serious Science)](http://www.cbs.dtu.dk/courses/27626/programme.php)
+    2. [Broad Institute Videos](https://www.broadinstitute.org/videos)
+
+##### Lectures:
+    1. [DTU Denmark Courses](http://www.cbs.dtu.dk/courses/27626/programme.php)
