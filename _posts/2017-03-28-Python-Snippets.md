@@ -1,0 +1,10 @@
+#### Python Articles
+1. [The ever useful and neat subprocess module](http://sharats.me/the-ever-useful-and-neat-subprocess-module.html)
+2. [The Hitchhiker's guide to Python](http://docs.python-guide.org/en/latest/)
+3. [Python packaging user guide](https://packaging.python.org/)
+4. [Pip](https://pip.pypa.io/en/stable/)
+5. [The Hitchhiker’s Guide to Packaging](The Hitchhiker's Guide to Packaging)
+6. [How to package your python code](How To Package Your Python Code)
+7. [Virtual Environments](http://docs.python-guide.org/en/latest/dev/virtualenvs/)
+8. [Python multiprocessing basics](https://pymotw.com/2/multiprocessing/basics.html)
+9. [Including Jupyter notebooks in Jekyll blog posts](http://briancaffey.github.io/2016/03/14/ipynb-with-jekyll.html)
