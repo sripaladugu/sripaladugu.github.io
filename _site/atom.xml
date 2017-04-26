@@ -6,13 +6,46 @@
   
   <link href="http://localhost:4000/"/>
   <id>http://localhost:4000/</id>
-  <updated>2017-03-19T11:02:07Z</updated>
+  <updated>2017-03-24T15:14:17Z</updated>
   <author>
     <name>Sri Paladugu</name>
     <email>spaladug@gmail.com</email>
   </author>
   <rights type="text">Copyright © 2017 Sri Paladugu. All rights reserved.</rights>
   
+  <entry>
+  <title type="text">Installing Fgbio</title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/Installing-fgbio.html" />
+  <id>http://localhost:4000/Installing-fgbio</id>
+  <published>2017-03-23T00:00:00Z</published>
+  <updated>2017-03-23T00:00:00Z</updated>
+  <content type="html"><![CDATA[ <h4 id="installing-sbt">Installing SBT</h4>
+<ol>
+  <li><code class="highlighter-rouge">wget http://dl.bintray.com/sbt/rpm/sbt-0.13.5.rpm</code></li>
+  <li><code class="highlighter-rouge">rpm2cpio sbt-0.13.5.rpm | cpio -idv</code></li>
+  <li><code class="highlighter-rouge">mkdir sbt-tool</code>
+    <ol>
+      <li><code class="highlighter-rouge">mv etc sbt-tool/</code></li>
+      <li><code class="highlighter-rouge">mv usr sbt-tool/</code></li>
+    </ol>
+  </li>
+  <li><code class="highlighter-rouge">module load java</code></li>
+  <li><code class="highlighter-rouge">sbt-tool/usr/bin/sbt --version</code></li>
+  <li>append path of <code class="highlighter-rouge">sbt-tool/usr/bin</code> to your <code class="highlighter-rouge">PATH</code> variable</li>
+</ol>
+
+<h4 id="building-fgbio">Building fgbio</h4>
+<ol>
+  <li><code class="highlighter-rouge">git clone https://github.com/fulcrumgenomics/fgbio.git</code></li>
+  <li><code class="highlighter-rouge">cd fgbio</code></li>
+  <li><code class="highlighter-rouge">sbt assembly</code></li>
+  <li>Usage:
+(a) <code class="highlighter-rouge">java -jar /isilon/Analysis/research/workspace/sri/dedupComparision/fgbio/target/scala-2.11/fgbio-0.1.4-SNAPSHOT.jar &lt;command&gt;</code></li>
+</ol>
+ ]]></content>
+</entry>
+
+
   <entry>
   <title type="text">Pandas</title>
   <link rel="alternate" type="text/html" href="http://localhost:4000/Pandas.html" />
@@ -4142,8 +4175,13 @@ Steps:
   <published>2017-03-01T00:00:00Z</published>
   <updated>2017-03-01T00:00:00Z</updated>
   <content type="html"><![CDATA[ <h5 id="videos">Videos:</h5>
-<div class="highlighter-rouge"><pre class="highlight"><code>1. &lt;a href="http://serious-science.org/author/marz"&gt; Non-coding RNAs (Serious Science) &lt;/a&gt;
-2. &lt;a href="https://www.broadinstitute.org/videos"&gt; Broad Institute Videos &lt;/a&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>1. [Non-coding RNAs (Serious Science)](http://www.cbs.dtu.dk/courses/27626/programme.php)
+2. [Broad Institute Videos](https://www.broadinstitute.org/videos)
+</code></pre>
+</div>
+
+<h5 id="lectures">Lectures:</h5>
+<div class="highlighter-rouge"><pre class="highlight"><code>1. [DTU Denmark Courses](http://www.cbs.dtu.dk/courses/27626/programme.php)
 </code></pre>
 </div>
  ]]></content>

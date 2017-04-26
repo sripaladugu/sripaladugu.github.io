@@ -2,10 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://localhost:4000/</loc>
-    <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+    <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
+  
+    <url>
+      <loc>http://localhost:4000/Installing-fgbio.html</loc>
+      
+        <lastmod>2017-03-23T00:00:00-07:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.5</priority>
+      
+    </url>
   
     <url>
       <loc>http://localhost:4000/Pandas.html</loc>
@@ -102,7 +115,7 @@
   <url>
     <loc>http://localhost:4000/404</loc>
     
-      <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+      <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     
     
       <changefreq>monthly</changefreq>
@@ -115,7 +128,7 @@
   <url>
     <loc>http://localhost:4000/atom.xml</loc>
     
-      <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+      <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     
     
       <changefreq>monthly</changefreq>
@@ -128,7 +141,7 @@
   <url>
     <loc>http://localhost:4000/</loc>
     
-      <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+      <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     
     
       <changefreq>monthly</changefreq>
@@ -141,7 +154,7 @@
   <url>
     <loc>http://localhost:4000/blog/</loc>
     
-      <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+      <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     
     
       <changefreq>monthly</changefreq>
@@ -154,7 +167,7 @@
   <url>
     <loc>http://localhost:4000/about/</loc>
     
-      <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+      <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     
     
       <changefreq>monthly</changefreq>
@@ -167,7 +180,7 @@
   <url>
     <loc>http://localhost:4000/projects/</loc>
     
-      <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+      <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     
     
       <changefreq>monthly</changefreq>
@@ -180,7 +193,7 @@
   <url>
     <loc>http://localhost:4000/cv/</loc>
     
-      <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+      <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     
     
       <changefreq>monthly</changefreq>
@@ -193,7 +206,7 @@
   <url>
     <loc>http://localhost:4000/css/main.css</loc>
     
-      <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+      <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     
     
       <changefreq>monthly</changefreq>
@@ -206,7 +219,7 @@
   <url>
     <loc>http://localhost:4000/sitemap.xml</loc>
     
-      <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+      <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     
     
       <changefreq>monthly</changefreq>
@@ -219,7 +232,7 @@
   <url>
     <loc>http://localhost:4000/feed.xml</loc>
     
-      <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+      <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     
     
       <changefreq>monthly</changefreq>
@@ -232,7 +245,7 @@
   <url>
     <loc>http://localhost:4000/feed.xslt.xml</loc>
     
-      <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+      <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     
     
       <changefreq>monthly</changefreq>
@@ -245,7 +258,7 @@
   <url>
     <loc>http://localhost:4000/page2/</loc>
     
-      <lastmod>2017-03-19T11:02:07-07:00</lastmod>
+      <lastmod>2017-03-24T15:14:17-07:00</lastmod>
     
     
       <changefreq>monthly</changefreq>

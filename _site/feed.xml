@@ -1,4 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-03-19T11:02:07-07:00</updated><id>http://localhost:4000//</id><title type="html">Sri R. Paladugu</title><subtitle>Personal website of Sri Paladugu, Principal Scientist at Roche.</subtitle><author><name>Sri Paladugu</name></author><entry><title type="html">Pandas</title><link href="http://localhost:4000/Pandas.html" rel="alternate" type="text/html" title="Pandas" /><published>2017-03-19T00:00:00-07:00</published><updated>2017-03-19T00:00:00-07:00</updated><id>http://localhost:4000/Pandas</id><content type="html" xml:base="http://localhost:4000/Pandas.html">&lt;h3 id=&quot;series&quot;&gt;Series&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-03-24T15:14:17-07:00</updated><id>http://localhost:4000//</id><title type="html">Sri R. Paladugu</title><subtitle>Personal website of Sri Paladugu, Principal Scientist at Roche.</subtitle><author><name>Sri Paladugu</name></author><entry><title type="html">Installing Fgbio</title><link href="http://localhost:4000/Installing-fgbio.html" rel="alternate" type="text/html" title="Installing Fgbio" /><published>2017-03-23T00:00:00-07:00</published><updated>2017-03-23T00:00:00-07:00</updated><id>http://localhost:4000/Installing-fgbio</id><content type="html" xml:base="http://localhost:4000/Installing-fgbio.html">&lt;h4 id=&quot;installing-sbt&quot;&gt;Installing SBT&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;wget http://dl.bintray.com/sbt/rpm/sbt-0.13.5.rpm&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rpm2cpio sbt-0.13.5.rpm | cpio -idv&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mkdir sbt-tool&lt;/code&gt;
+    &lt;ol&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mv etc sbt-tool/&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;mv usr sbt-tool/&lt;/code&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;module load java&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sbt-tool/usr/bin/sbt --version&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;append path of &lt;code class=&quot;highlighter-rouge&quot;&gt;sbt-tool/usr/bin&lt;/code&gt; to your &lt;code class=&quot;highlighter-rouge&quot;&gt;PATH&lt;/code&gt; variable&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;building-fgbio&quot;&gt;Building fgbio&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git clone https://github.com/fulcrumgenomics/fgbio.git&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cd fgbio&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sbt assembly&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Usage:
+(a) &lt;code class=&quot;highlighter-rouge&quot;&gt;java -jar /isilon/Analysis/research/workspace/sri/dedupComparision/fgbio/target/scala-2.11/fgbio-0.1.4-SNAPSHOT.jar &amp;lt;command&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Sri Paladugu</name></author><summary type="html">Installing SBT
+
+  wget http://dl.bintray.com/sbt/rpm/sbt-0.13.5.rpm
+  rpm2cpio sbt-0.13.5.rpm | cpio -idv
+  mkdir sbt-tool
+    
+      mv etc sbt-tool/
+      mv usr sbt-tool/
+    
+  
+  module load java
+  sbt-tool/usr/bin/sbt --version
+  append path of sbt-tool/usr/bin to your PATH variable</summary></entry><entry><title type="html">Pandas</title><link href="http://localhost:4000/Pandas.html" rel="alternate" type="text/html" title="Pandas" /><published>2017-03-19T00:00:00-07:00</published><updated>2017-03-19T00:00:00-07:00</updated><id>http://localhost:4000/Pandas</id><content type="html" xml:base="http://localhost:4000/Pandas.html">&lt;h3 id=&quot;series&quot;&gt;Series&lt;/h3&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pd&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -4090,12 +4124,17 @@ Steps:
            return(x+y+z)
    fn1(1,2)
    fn1(1,2,3)</summary></entry><entry><title type="html">Bioinformatics</title><link href="http://localhost:4000/Bioinformatics.html" rel="alternate" type="text/html" title="Bioinformatics" /><published>2017-03-01T00:00:00-08:00</published><updated>2017-03-01T00:00:00-08:00</updated><id>http://localhost:4000/Bioinformatics</id><content type="html" xml:base="http://localhost:4000/Bioinformatics.html">&lt;h5 id=&quot;videos&quot;&gt;Videos:&lt;/h5&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1. &amp;lt;a href=&quot;http://serious-science.org/author/marz&quot;&amp;gt; Non-coding RNAs (Serious Science) &amp;lt;/a&amp;gt;
-2. &amp;lt;a href=&quot;https://www.broadinstitute.org/videos&quot;&amp;gt; Broad Institute Videos &amp;lt;/a&amp;gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1. [Non-coding RNAs (Serious Science)](http://www.cbs.dtu.dk/courses/27626/programme.php)
+2. [Broad Institute Videos](https://www.broadinstitute.org/videos)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;lectures&quot;&gt;Lectures:&lt;/h5&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1. [DTU Denmark Courses](http://www.cbs.dtu.dk/courses/27626/programme.php)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;</content><author><name>Sri Paladugu</name></author><summary type="html">Videos:
-1. &amp;lt;a href=&quot;http://serious-science.org/author/marz&quot;&amp;gt; Non-coding RNAs (Serious Science) &amp;lt;/a&amp;gt;
-2. &amp;lt;a href=&quot;https://www.broadinstitute.org/videos&quot;&amp;gt; Broad Institute Videos &amp;lt;/a&amp;gt;</summary></entry><entry><title type="html">Pharmacotherapy IX</title><link href="http://localhost:4000/Pharmacotherapy-IX.html" rel="alternate" type="text/html" title="Pharmacotherapy IX" /><published>2017-02-26T00:00:00-08:00</published><updated>2017-02-26T00:00:00-08:00</updated><id>http://localhost:4000/Pharmacotherapy-IX</id><content type="html" xml:base="http://localhost:4000/Pharmacotherapy-IX.html">&lt;h3 id=&quot;neuroanatomy-nomenclature&quot;&gt;Neuroanatomy Nomenclature&lt;/h3&gt;
+1. [Non-coding RNAs (Serious Science)](http://www.cbs.dtu.dk/courses/27626/programme.php)
+2. [Broad Institute Videos](https://www.broadinstitute.org/videos)</summary></entry><entry><title type="html">Pharmacotherapy IX</title><link href="http://localhost:4000/Pharmacotherapy-IX.html" rel="alternate" type="text/html" title="Pharmacotherapy IX" /><published>2017-02-26T00:00:00-08:00</published><updated>2017-02-26T00:00:00-08:00</updated><id>http://localhost:4000/Pharmacotherapy-IX</id><content type="html" xml:base="http://localhost:4000/Pharmacotherapy-IX.html">&lt;h3 id=&quot;neuroanatomy-nomenclature&quot;&gt;Neuroanatomy Nomenclature&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- Anterior/rostral: in the direction of nose/head
 - Posterior/caudal: in the direction of rear, back
