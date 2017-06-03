@@ -10,3 +10,4 @@
 9. [Including Jupyter notebooks in Jekyll blog posts](http://briancaffey.github.io/2016/03/14/ipynb-with-jekyll.html)
 10. [PySide/PyQt Tutorial: Creating Your Own Signals and Slots](http://pythoncentral.io/pysidepyqt-tutorial-creating-your-own-signals-and-slots/)
 11. [A non-magical introduction to Pip and Virtualenv for Python beginners](https://www.dabapps.com/blog/introduction-to-pip-and-virtualenv-python/)
+12. [What programs should I make using python?](https://www.quora.com/What-programs-should-I-make-using-Python/answer/Aaron-Mefford)

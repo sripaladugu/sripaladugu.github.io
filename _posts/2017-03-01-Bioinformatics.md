@@ -12,3 +12,4 @@
     6. [General Bioinformatics](http://userweb.eng.gla.ac.uk/umer.ijaz/bioinformatics/)
     7. [Genome-based RNA-Seq analysis using the Tuxedo package](https://github.com/trinityrnaseq/RNASeq_Trinity_Tuxedo_Workshop/wiki/Tuxedo-Genome-Guided-Transcriptome-Assembly-Workshop)
     8. [SciLifeLab Courses](https://scilifelab.github.io/courses/)
+    9. [CureFFI.org](http://www.cureffi.org/2012/12/19/forward-and-reverse-reads-in-paired-end-sequencing/)
