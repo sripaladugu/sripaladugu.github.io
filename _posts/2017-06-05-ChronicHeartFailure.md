@@ -9,6 +9,7 @@
 
 +  Compensatory Mechanisms in HFrEF
    >Cardiac Output (CO) is defined as the volume of blood ejected per unit time (L/min) and is the product of heart rate (HR) and stroke volume (SV): CO = HR x SV
+
    >HFrEF is initiated by any event that impairs the ability of the heart to contract and sometimes relax resulting in a decrease in CO. The event may have an acute onset, as with MI, or the onset may be slow, as with long-standing HTN.
    *  Tachycardia and Increased contractility
       -  Primarily due to release of NE in response to a drop in CO
