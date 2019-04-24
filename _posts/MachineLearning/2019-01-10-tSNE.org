@@ -1,0 +1,32 @@
+* Dimensionality Reduction:
+  Do not confuse dimensionality reduction with clustering techniques. As
+opposed to clustering techniques which try to group together data-points based on
+some similarity metric, dimensionality reduction methods project the data-points from
+a higher-dimensional space to a lower dimensional space. You can use a clustering technique
+to cluster the data-points (i.e. assign a cluster label to each of data-points) and then
+use a dimensionality reduction technique to project the raw data (unclustered data) to a lower
+dimensional space. What you can then do is to use the cluster-label to color the data-points
+in a lower dimensional space. This offers a way to nicely visualize high-dimensional data in
+ lower-dimensional space like a plane. In essence dimensionality reduction facilitates
+visualization which is otherwise difficult. One word of caution, **do not** apply dimensionality
+reduction technique first and then cluster the projected data. The reason for is that the
+density information that is present in the raw-data is sacrificied during the dimensionality
+reduction process and hence you won't be able to retrieve the original clusters present in the
+raw data.
+
+Some common dimensionality reduction techniques are:
+
+** Principal Component Analysis (PCA):
+   A linear dimensionality reduction technique.
+***  The principal components are dimensions in which there is maximum variance.
+**** X-axis is the axis along which the highest amount of variance is explained.
+**** Y-axis is the axis along which the second highest variance is explained.
+
+** t-Stochastic Neighbor Embedding (t-SNE):
+   A Non-linear dimensionality reduction technique.
+***  https://distill.pub/2016/misread-tsne/
+***  Two youtube videos by Divy Kangeyan: https://www.youtube.com/watch?v=W-9L6v_rFIE
+***  Parameters:
+**** Perplexity: Loosely interpreted as the number of neighbors of certain point.
+***** Perplexity too low => local variations are going to dominate.
+***** Perplexity too large => global changes are goint to dominate.

@@ -1,0 +1,108 @@
+* Object Oriented Design
+** Objects: have
+***  Identity Ex: Sri's Mug, Account #
+***  Attributes Ex: Color, Account Balance
+***  Behavior Ex: Empty(), withdraw()
+** Objects = Nouns
+   If you are talking about it in a conversation, could you put a word "The"
+   infront of it?
+***  Things
+     Ex: The mug, The document
+***  People
+     Ex: The Person
+***  Places
+***  Ideas
+     Ex: The bank account
+***  Concepts
+     Ex: The Event, The Time
+** Behaviors = Verbs
+* Four Fundamental ideas:
+** Abstraction
+   - You focus on the essential qualities of something.
+     Ex:- The idea or concept of a person
+** Polymorphism
+   - Having many forms.
+***  Dynamic Polymorphism:
+     - Uses the same interface for methods of different types of objects.
+     - Uses method over-riding -> method signature is same
+***  Static (Compile-Time) Polymorphism:
+     - Uses method overloading -> method signature is different
+** Inheritance
+   - Base a new object or class on an existing one
+   - Inherit the existing attributes and methods
+   - Great form of code reuse.
+   Ex:- Person can be a base-class. Employee and Customer can be sub-classes of Person Class.
+** Encapsulation
+   - Containing the elements of an object
+
+* Object Oriented Analysis/Design/Programming
+  1. Gather Requirements.
+  2. Describe the application.
+  3. Idenity the main objects.
+  4. Describe the interactions.
+  5. Create a class diagram.
+
+* MVP (Minimal Viable Product).
+
+* FURPS+ requirements.
+  - Functional
+  - Usability
+  - Reliability -> Should be available 24/7
+  - Performance -> Like should use less power
+  - Supportability -> Like easily upgradable
+
+* Use Cases and User Stories
+** Use Case: Scenario as Paragraph
+***  Title:
+     Heat Meal
+***  Primary Actor:
+     Astronaut
+***  Success Scenario:
+     Astronaut inserts meal package. System identifies type of meal. System
+     heats package for length of time required for meal type.
+** Use Case: Scenario as Steps
+***  Title:
+***  Primary Actor:
+***  Success Scenario:
+     1. Astronaut inserts meal package.
+     2. System identifies type of meal.
+     3. System heats package for length of time required for meal type.
+* Identifying the actors
+  - Can be users or other computer systems
+* Identifying the scenarios
+  - Things that can be accomplished in one encounter
+* Diagramming use cases
+* User Stories
+  - Short (one index card)
+  - One goal, no details
+  - Informal
+  - Placeholder for conversation
+* CRC cards
+  - Class
+  - Responsibility
+  - Collaboration
+* Inheritance
+  Describes a "is a" relationship between objects.
+* Abstract Class
+  Contains at least one method that is not implemented.
+* Interfaces
+  List of methods for a class to implement.
+  It doesn't contain any actual behavior.
+  Interfaces are more future friendly way of programming than using inheritance.
+* SOLID
+ - General principles to keep in mind that'll make maintaining your code base
+   easier in the long run.
+ - SOLID is an acronym for one set of well known principles that apply to any
+   object oriented design.
+** Single Responsibility Principle
+   - A class should have only a single responsibility
+** Open/closed Principle
+** Liskov Substitution Principle
+** Interface Segregation Principle
+** Dependency Inversion Principle
+* DRY
+  - Don't Repeat Yourself.
+* YAGNI
+  - You Ain't Gonna Need It.
+**
+**

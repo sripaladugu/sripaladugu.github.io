@@ -1,0 +1,589 @@
+# coding: utf-8
+#+TITLE:     Design Patterns in Python
+#+AUTHOR:    Sri Paladugu
+#+EMAIL:     sri.paladugu@roche.com
+#+DESCRIPTION: Python Design Patterns
+#+KEYWORDS: Python Design Patterns
+#+LANGUAGE:  en
+#+OPTIONS:   H:4
+#+OPTIONS:   num:nil
+#+OPTIONS:   toc:2
+#+OPTIONS:   p:t
+#+OPTIONS:   ^:nil
+#+TOC: headlines 2
+#+STARTUP: overview
+#+STARTUP: content
+#+STARTUP: showall
+#+STARTUP: showeverything
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup 
+
+* The What
+ - Is a template for solving a common problem.
+ - A guideline for solving certain kinds of problems that we encounter in different domains
+* Types of Design Patterns
+** Creational
+   - Separate system from how its objects are created and composed
+   - Explicitly express which concrete classes the system uses
+   - Hide how instances of these concrete classes are created and combined
+   - Types:
+      * Factory
+      * Abstract Factory
+      * Builder
+      * Prototype
+      * Singleton vs. Borg
+** Structural
+   - Looks for a simple way to realize relationships between entities
+   - Structure refers to composition of classes or objects
+   - Types
+     * MVC
+     * Facade
+     * Proxy
+     * Decorator
+     * Adaptor
+** Behavioral
+   - Identify and realize common communication patterns between objects
+   - To do with assignment of responsibility between objects
+   - Encapsulate behavior in an object and delegate to it
+   - Types
+     * Command
+     * Interpreter
+     * State
+     * Chain of responsibility
+     * Strategy
+     * Observer
+     * Memento
+     * Template
+     * Reactive design patterns
+
+* Iterating in Python
+  - An *iterable* is an object that you can get an iterator from
+  - An *iterator* is an object with a __next__ method
+  - Technically speaking, Python *iterator* object must implement two special methods, __iter__() and __next__(), collectively called the iterator protocol.
+  - Whenever you use a for loop, or map, or a list comprehension, the next method is called automatically to get each item from the iterator.
+
+#+BEGIN_SRC python :results output :exports both
+list = [1,2,3] # list is iterable
+iter = list.__iter__() # This gets the iterator object
+print(iter)
+print( iter.__next__() )
+#+END_SRC
+
+#+RESULTS:
+: <list_iterator object at 0x10113cdd8>
+: 1
+
+  - A *list comprehension* is a tool for transforming any iterable into a new list.
+  - Elements of the iterable can be conditionally included and transformed as required.
+
+#+BEGIN_SRC python :results output :exports both
+# say you want to flatten a matrix
+matrix = [[1,2,3],[4,5,6],[7,8,9]]
+print(matrix)
+flat = [elem for row in matrix for elem in row]
+print(flat)
+#+END_SRC
+
+#+RESULTS:
+: [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+
+* Decorators or Wrappers 
+  - A decorator is a function that takes another function and extends the behavior of the second function without explicitly modifying it.
+  - Can be reused across multiple functions (but does not apply to classes).
+  - Functions are first-class objects, which means they can be defined in and returned by other functions.
+
+#+BEGIN_SRC python :results output :exports both
+import time
+
+def timing_function(some_function):
+    def wrapper():
+        t1 = time.time()
+        some_function()
+        t2 = time.time()
+        print("Time it took to run the function: " + str((t2-t1)) + "\n")
+
+    return wrapper
+
+def my_function():
+    num_list = []
+    for num in range(0,10000):
+        num_list.append(num)
+    print("\n Sum of all the numbers: " + str(sum(num_list)))
+
+wrapped_func = timing_function(my_function)
+wrapped_func()
+#+END_SRC
+
+#+RESULTS:
+: 
+:  Sum of all the numbers: 49995000
+: Time it took to run the function: 0.0015208721160888672
+: 
+
+#+BEGIN_SRC python :results output :exports both
+
+import time
+
+def timing_function(some_function):
+    def wrapper():
+        t1 = time.time()
+        some_function()
+        t2 = time.time()
+        print("Time it took to run the function: " + str((t2-t1)) + "\n")
+
+    return wrapper
+
+@timing_function
+def my_function():
+    num_list = []
+    for num in range(0,10000):
+        num_list.append(num)
+    print("\n Sum of all the numbers: " + str(sum(num_list)))
+
+# Since the decorator is applied automatically you don't need to manually wrap
+# Just call the function directly
+my_function()
+
+#+END_SRC
+
+#+RESULTS:
+: 
+:  Sum of all the numbers: 49995000
+: Time it took to run the function: 0.0018508434295654297
+: 
+
+
+* Inheritance in python 
+- *Overriding* is when a subclass can provide different implementation of a method defined by its superclasse(s)
+- *Overloading* is the ability to define the same method with the same name but different arguments
+- *__bases__*: A possibly empty tuple containing the base classes, in the order of their occurence in the base class list.
+- *__subclasses__*: Each class keeps a list of weak references to its immediate subclasses, this method returns a list of all those references still alive
+
+#+BEGIN_SRC python :results output :exports both
+
+class Pet(object):
+    """
+    Base class for all pets.
+    """
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+
+    def get_name(self):
+        return self.name
+
+    def get_species(self):
+        return self.species
+
+    def __str__(self):
+        return "%s is a %s" % (self.name, self.species)
+
+class Dog(Pet):
+    def __init__(self, name, chases_cats):
+        super().__init__(name, "Dog")
+        self.chases_cats = chases_cats
+
+    def __str__(self):
+        """overrides the __str__ method in base class"""
+        additional_info = ""
+        if self.chases_cats:
+            additional_info = " who chases cats"
+        return super().__str__() + additional_info
+
+p = Pet("Polly", "parrot")
+print(p)
+
+d = Dog("Fred", True)
+print(d)
+
+print(Dog.__bases__) # __bases__ is an attribute
+
+print(Pet.__subclasses__()) # __subclasses__ is a method and it returns a list
+#+END_SRC
+
+#+RESULTS:
+: Polly is a parrot
+: Fred is a Dog who chases cats
+: (<class '__main__.Pet'>,)
+: [<class '__main__.Dog'>]
+
+* Multiple Inheritance 
+- A class can inherit from multiple parent classes (for example, a dog can be a type of pet as well as a type of mammal).
+- *__mro__*: An ordered tuple of classes that are considered when looking for base classes during method resolution. 
+
+#+BEGIN_SRC python :results output :exports both
+class A(object):
+    def __init__(self):
+        print('A')
+
+    @staticmethod
+    def foo(): # notice static methods do not take self argument
+        print('foo')
+
+class B(object):
+    def __init__(self):
+        print('B')
+
+    @staticmethod
+    def bar():
+        print('bar')
+
+class C(A,B):
+    def foobar(self):
+        self.foo()
+        self.bar()
+
+c = C() # C inherits from both A and B. Due to method resolution order, python is going to look for the methods you are calling in the parent classes based on the order you specify in the parenthesis.
+
+print(C.__mro__)
+
+c.foobar()
+
+#+END_SRC
+
+#+RESULTS:
+: A
+: (<class '__main__.C'>, <class '__main__.A'>, <class '__main__.B'>, <class 'object'>)
+: foo
+: bar
+
+* Producing with Factories 
+
+** Factory Pattern
+   - Defines an interface for creating an object, but defer object instantiation to run time
+ #+CAPTION: Factory Pattern
+ #+NAME:   fig:Factory-Pattern
+ [[./DesignPatternsFigures/Factory.png]]
+
+   - An interface just defines methods whereas an abstract base-class also defines attributes apart from methods.
+
+#+BEGIN_SRC python :results output :exports both
+class ShapeInterface:
+    def draw(self): pass
+
+class Circle(ShapeInterface):
+    def draw(self):
+        print("Circle.draw")
+
+class Square(ShapeInterface):
+    def draw(self):
+        print("Square.draw")
+
+class ShapeFactory():
+    @staticmethod
+    def get_shape(type):
+        if type == 'circle':
+            return Circle()
+        if type == 'square':
+            return Square()
+        assert 0, 'Could not find shape ' + type
+
+#-- Demo Factory Pattern --#
+f = ShapeFactory()
+s = f.get_shape('square')
+s.draw()
+
+#t = f.get_shape('triangle')
+#t.draw()
+#+END_SRC
+
+#+RESULTS:
+: Square.draw
+
+** Abstract Factory Pattern
+   - Provide an interface for creating families of related objects without specifying their concrete classes.
+   - An abstract factory is just an extension of factory pattern, it gives you one more layer of abstraction.
+
+***  How to Build an Abstract Factory? 
+     - Create the family of interaces or abstract base classes
+     - Create the concrete classes for each of these
+     - Create an abstract factory which applies to the whole family
+     - Create a concrete factory for each base class
+
+#+BEGIN_SRC python :results output :exports both
+#-- abstract shape classes --#
+class Shape2DInterface:
+    def draw(self): pass
+
+class Shape3DInterface:
+    def build(self): pass
+
+#-- concrete shape classes --#
+class Circle(Shape2DInterface):
+    def draw(self):
+        print("Circle.draw")
+
+class Square(Shape2DInterface):
+    def draw(self):
+        print("Square.draw")
+
+class Sphere(Shape3DInterface):
+    def build(self):
+        print("Sphere.build")
+
+class Cube(Shape3DInterface):
+    def build(self):
+        print("Cube.build")
+
+#-- Abstract shape factory --#
+class ShapeFactoryInterface:
+    def get_shape(sides): pass
+
+#-- Concrete shape factories --#
+class Shape2DFactory(ShapeFactoryInterface):
+    @staticmethod
+    def get_shape(sides):
+        if sides == 1:
+            return Circle()
+        if sides == 4:
+            return Square()
+        assert 0, "Bad 2D shape creation: shape not defined for " + sides + "sides."
+
+class Shape3DFactory(ShapeFactoryInterface):
+    @staticmethod
+    def get_shape(sides):
+       if sides == 1:
+          return Sphere()
+       if sides ==6:
+          return Cube()
+       assert 0,  "Bad 3D shape creation: shape not defined for " + sides + "sides."
+
+#-- Demo Abstract Factory Pattern --#
+s2 = Shape2DFactory()
+s2.get_shape(1)
+s2.get_shape(1).draw()
+
+s3 = Shape3DFactory()
+s3.get_shape(6)
+s3.get_shape(6).build()
+#+END_SRC
+
+#+RESULTS:
+: Circle.draw
+: Cube.build
+
+** Builder Pattern
+   - Separate the construction of complex object from its representation so that the same construction process can create different representations.
+   
+ #+CAPTION: Builder Pattern
+ #+NAME:   fig:Builder-Pattern
+ [[./DesignPatternsFigures/Builder.png]]
+
+#+BEGIN_SRC python :results output :exports both
+class Car:
+    def __init__(self):
+        self.__wheels = list()
+        self.__engine = None
+        self.__body = None
+
+    def set_body(self, body):
+        self.__body = body
+
+    def attach_wheel(self, wheel):
+        self.__wheels.append(wheel)
+
+    def set_engine(self, engine):
+        self.__engine = engine
+
+    def specification(self):
+        print("body: %s" % self.__body.shape)
+        print("engine horsepower: %d" %self.__engine.horsepower)
+        print("tire size: %d\'" %self.__wheels[0].size )
+
+#-- Car Parts --#
+class Wheel:
+    size = None
+
+class Engine:
+    horsepower = None
+
+class Body:
+    shape = None
+
+class Director:
+    __builder = None
+
+    def set_builder(self, builder):
+        self.__builder = builder
+
+    # Algorithm for assembling car
+    def get_car(self):
+        car = Car()
+
+        body = self.__builder.get_body()
+        car.set_body(body)
+
+        engine = self.__builder.get_engine()
+        car.set_engine(engine)
+
+        # Add four wheels
+        i = 0
+        while i < 4:
+            wheel = self.__builder.get_wheel()
+            car.attach_wheel(wheel)
+            i += 1
+        return car
+
+class BuilderInterface:
+    def get_wheel(self): pass
+    def get_engine(self): pass
+    def get_body(self): pass
+
+class JeepBuilder(BuilderInterface):
+    def get_wheel(self):
+        wheel = Wheel()
+        wheel.size = 22
+        return wheel
+    
+    def get_engine(self):
+        engine = Engine()
+        engine.horsepower = 400
+        return engine
+
+    def get_body(self):
+        body = Body()
+        body.shape = "SUV"
+        return body
+
+class NissanBuilder(BuilderInterface):
+    def get_wheel(self):
+        wheel = Wheel()
+        wheel.size = 16
+        return wheel
+    
+    def get_engine(self):
+        engine = Engine()
+        engine.horsepower = 100
+        return engine
+
+    def get_body(self):
+        body = Body()
+        body.shape = "hatchback"
+        return body
+ 
+#-- Demo --#
+d = Director()
+d.set_builder(JeepBuilder())
+d.get_car()
+d.get_car().specification()
+
+print("\n")
+
+d2 = Director()
+d2.set_builder(NissanBuilder())
+d2.get_car()
+d2.get_car().specification()
+#+END_SRC
+
+#+RESULTS:
+: body: SUV
+: engine horsepower: 400
+: tire size: 22'
+: 
+: 
+: body: hatchback
+: engine horsepower: 100
+: tire size: 16'
+
+** Prototype Pattern
+   - Specify the kinds of objects to use a prototypical instance, and create new objects by copying this prototype.
+   - Why do you want to this?
+     * A typical example is when the creation of an object is costly.
+     * Consider a class which requires some configuration data, may be for a file or a database and it needs this for initialization.
+     * You might not want to pay for the cost of set-up each time, espicially if you know that the data perhaps does not change very often.
+     * In that case you can create a copy of the object instead of creating an instance of the object using initialization each time.
+
+ #+CAPTION: Prototype Pattern
+ #+NAME:   fig:Prototype-Pattern
+ [[./DesignPatternsFigures/Prototype.png]]
+
+#+BEGIN_SRC python :results output :exports both
+from copy import deepcopy
+
+class Point:
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        print("({}, {})".format(self.x, self.y))
+
+    def move(self, x, y):
+        self.x += x
+        self.y += y
+
+    def clone(self, move_x, move_y):
+        obj = deepcopy(self)
+        obj.move(move_x, move_y)
+        return obj
+
+#-- Demo --#
+p0 = Point(0,0)
+p0.__str__()
+p1 = p0.clone(1,1)
+p1.__str__()
+
+# This is a trivial example as insitiating a point is not costly.
+# But imagine you to read a file to create custom color in that it is better to use clone method, rather than instatiating one each time.
+#+END_SRC
+
+#+RESULTS:
+: (0, 0)
+: (1, 1)
+
+** Singleton and Borg Patterns
+   - The Singleton pattern ensures that a class has only one instance, and provides a global point of access to it, for example, a logging class.
+   - The Borg idiom (aka monostate pattern) lets a class have as many instance as one likes, but ensures that they all share the same state.
+   - *__new__* is the first step of instance creation; it is called before *__init__*, and is responsible for returning a new instance of your class.
+   - *__init__* does not return anything; it is only responsible for initializing the instance after it has beeen created.
+
+ #+CAPTION: Singleton Vs. Borg Patterns
+ #+NAME:   fig:SingletonVsBorg-Patterns
+ [[./DesignPatternsFigures/SingletonVsBorg.png]]
+
+#+BEGIN_SRC python :results output :exports both
+from copy import deepcopy
+
+class Singleton:
+    __instance = None
+    def __new__(cls, val=None):
+        if Singleton.__instance is None:
+            Singleton.__instance = object.__new__(cls)
+        Singleton.__instance.val = val
+        return Singleton.__instance
+
+#-- Demo --#
+x = Singleton()
+x.val = 'burgar'
+
+y = Singleton()
+y.val = 'chips'
+
+print(y.val)
+print(x.val)
+
+print("Is x == y: {}".format(x==y))
+
+class Borg:
+    __shared_state = {}
+    def __init__(self):
+        self.__dict__ = self.__shared_state
+
+#-- Demo --#
+b = Borg()
+c = Borg()
+b.val = "milkshake"
+
+# Even though b and c are separate object they share the same state.
+print("c.val is: {}".format(c.val)) 
+print("Is b == c: {}".format(b==c))
+#+END_SRC
+
+#+RESULTS:
+: chips
+: chips
+: Is x == y: True
+: c.val is: milkshake
+: Is b == c: False

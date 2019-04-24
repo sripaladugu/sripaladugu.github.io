@@ -1,0 +1,25 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+BEGIN_HTML
+---
+layout: post
+title: "emacs"
+date: 2018-08-11
+tags: [emacs]
+---
+#+END_HTML
+
+### Commands Cheat-Sheet
+* Undo: C+_
+* Kill a line: C+k
+* Select block: C+space
+* Copy: M-w
+* Paste killed line: C+y
+* To insert src block: < + s + Tab
+* Neotree: M-x neotree
+** To maximize of minimize (i.e strech) windows: Shit + a
+** To switch between windows: C+x o
+** Go up a directory: Shift + u
+* Troubleshooting:
+** If you have trouble installing a package, try:
+***  M+x package-refresh-contents
